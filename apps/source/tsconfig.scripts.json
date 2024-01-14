@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": [".eslintrc.cjs", "codegen.ts"],
+  "include": [".eslintrc.cjs"],
   "compilerOptions": {
     "rootDir": "."
   }

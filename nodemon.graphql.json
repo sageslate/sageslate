@@ -1,0 +1,5 @@
+{
+  "exec": "pnpm generate:graphql",
+  "watch": ["apps/source/src/graphql"],
+  "ext": "graphql,ts"
+}

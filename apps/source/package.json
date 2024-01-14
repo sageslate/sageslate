@@ -5,11 +5,8 @@
   "main": "src/main.ts",
   "scripts": {
     "lint:path": "eslint --ext .ts --fix",
-    "lint": "pnpm run lint:path -- .",
-    "generate:graphql:00_codegen": "graphql-codegen-esm",
-    "generate:graphql:01_lint": "pnpm run lint:path -- src/schema/**",
-    "generate:graphql": "run-s generate:graphql:*",
-    "generate": "run-s generate:*"
+    "lint:graphql": "pnpm run lint:path -- src/schema",
+    "lint": "pnpm run lint:path -- ."
   },
   "keywords": [
     "vtt"
@@ -28,6 +25,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@apollo/server": "^4.10.0",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4"
   }
