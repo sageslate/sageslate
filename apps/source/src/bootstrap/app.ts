@@ -1,5 +1,9 @@
 import { bootstrapApollo } from './apollo'
+import { bootstrapEnvironment } from './environment'
+import { bootstrapMongo } from './mongodb'
 
 export async function bootstrapApp() {
-  await bootstrapApollo()
+  bootstrapEnvironment()
+  const database = await bootstrapMongo()
+  await bootstrapApollo({ database })
 }

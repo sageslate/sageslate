@@ -1,3 +1,5 @@
+import type { Db as Database } from 'mongodb'
+
 export type ApolloContext = {
-  hello: string
+  database: Database
 }

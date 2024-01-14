@@ -5,7 +5,7 @@ services:
     restart: on-failure
     environment:
       MONGO_INITDB_ROOT_USERNAME: sageslate
-      MONGO_INITDB_ROOT_PASSWORD: sageslatepassword
+      MONGO_INITDB_ROOT_PASSWORD: sageslate-password
     ports:
       - '27017:27017'
   mongo-express:
@@ -14,7 +14,7 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_URL: mongodb://sageslate:sageslatepassword@mongo:27017/
+      ME_CONFIG_MONGODB_URL: mongodb://sageslate:sageslate-password@mongo:27017/
     depends_on:
       - mongo
   redis:

@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { AdminMutationMapper } from './../graphql/Admin.mappers';
+import { AdminMutationMapper, AdminQueryMapper } from './../graphql/Admin.mappers';
+import { ApolloContext } from '../types/apollo';
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -42,6 +43,7 @@ export type AdminMutationsetupArgs = {
 export type AdminQuery = {
   __typename?: 'AdminQuery';
   isAuthenticated: Scalars['Boolean']['output'];
+  isInitialized: Scalars['Boolean']['output'];
 };
 
 export type AdminSetupInput = {
@@ -147,7 +149,7 @@ export type ResolversTypes = {
   AdminAuthenticationResult: ResolverTypeWrapper<AdminAuthenticationResult>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   AdminMutation: ResolverTypeWrapper<AdminMutationMapper>;
-  AdminQuery: ResolverTypeWrapper<AdminQuery>;
+  AdminQuery: ResolverTypeWrapper<AdminQueryMapper>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   AdminSetupInput: AdminSetupInput;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
@@ -163,7 +165,7 @@ export type ResolversParentTypes = {
   AdminAuthenticationResult: AdminAuthenticationResult;
   String: Scalars['String']['output'];
   AdminMutation: AdminMutationMapper;
-  AdminQuery: AdminQuery;
+  AdminQuery: AdminQueryMapper;
   Boolean: Scalars['Boolean']['output'];
   AdminSetupInput: AdminSetupInput;
   DateTime: Scalars['DateTime']['output'];
@@ -174,19 +176,20 @@ export type ResolversParentTypes = {
   RealmCreateInput: RealmCreateInput;
 };
 
-export type AdminAuthenticationResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminAuthenticationResult'] = ResolversParentTypes['AdminAuthenticationResult']> = {
+export type AdminAuthenticationResultResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminAuthenticationResult'] = ResolversParentTypes['AdminAuthenticationResult']> = {
   token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AdminMutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminMutation'] = ResolversParentTypes['AdminMutation']> = {
+export type AdminMutationResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminMutation'] = ResolversParentTypes['AdminMutation']> = {
   login?: Resolver<ResolversTypes['AdminAuthenticationResult'], ParentType, ContextType, RequireFields<AdminMutationloginArgs, 'password'>>;
   setup?: Resolver<ResolversTypes['AdminAuthenticationResult'], ParentType, ContextType, RequireFields<AdminMutationsetupArgs, 'input'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AdminQueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['AdminQuery'] = ResolversParentTypes['AdminQuery']> = {
+export type AdminQueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminQuery'] = ResolversParentTypes['AdminQuery']> = {
   isAuthenticated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  isInitialized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -194,15 +197,15 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
   name: 'DateTime';
 }
 
-export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+export type MutationResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   admin?: Resolver<ResolversTypes['AdminMutation'], ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   admin?: Resolver<ResolversTypes['AdminQuery'], ParentType, ContextType>;
 };
 
-export type RealmResolvers<ContextType = any, ParentType extends ResolversParentTypes['Realm'] = ResolversParentTypes['Realm']> = {
+export type RealmResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Realm'] = ResolversParentTypes['Realm']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   folderName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -211,7 +214,7 @@ export type RealmResolvers<ContextType = any, ParentType extends ResolversParent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = ApolloContext> = {
   AdminAuthenticationResult?: AdminAuthenticationResultResolvers<ContextType>;
   AdminMutation?: AdminMutationResolvers<ContextType>;
   AdminQuery?: AdminQueryResolvers<ContextType>;

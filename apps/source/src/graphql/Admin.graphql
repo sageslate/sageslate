@@ -8,6 +8,7 @@ type AdminAuthenticationResult {
 
 type AdminQuery {
   isAuthenticated: Boolean!
+  isInitialized: Boolean!
 }
 
 type AdminMutation {
