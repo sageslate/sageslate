@@ -15,6 +15,9 @@
     "dev:tools": "cd packages/tools && pnpm dev",
     "dev": "NODE_ENV=development run-p -l dev:*"
   },
+  "keywords": [
+    "vtt"
+  ],
   "license": "MIT",
   "author": "Nicolai Moraru <ceo@nickmessing.com>",
   "private": true,

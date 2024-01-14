@@ -9,10 +9,12 @@
   "bin": {
     "sage-fix-esm-imports": "./dist/bin/fixEsmImports.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "vtt"
+  ],
+  "license": "MIT",
+  "author": "Nicolai Moraru <ceo@nickmessing.com>",
   "type": "module",
-  "license": "ISC",
   "devDependencies": {
     "@sageslate/eslint-config-standards": "workspace:*",
     "@tsconfig/node20": "^20.1.2",

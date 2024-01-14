@@ -9,7 +9,9 @@
     "build": "pkgroll",
     "dev": "pkgroll --watch"
   },
-  "keywords": [],
+  "keywords": [
+    "vtt"
+  ],
   "license": "MIT",
   "author": "Nicolai Moraru <ceo@nickmessing.com>",
   "devDependencies": {
