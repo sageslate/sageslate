@@ -9,8 +9,9 @@ export default {
   generates: {
     'apps/source/src/schema': defineConfig({
       resolverGeneration: 'all',
+      resolverMainFileMode: 'modules',
       typesPluginsConfig: {
-        contextType: '../types/apollo#ApolloContext',
+        contextType: '../types/apollo.js#ApolloContext',
       },
     }),
   },

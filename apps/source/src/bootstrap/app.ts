@@ -1,6 +1,6 @@
-import { bootstrapApollo } from './apollo'
-import { bootstrapEnvironment } from './environment'
-import { bootstrapMongo } from './mongodb'
+import { bootstrapApollo } from './apollo.js'
+import { bootstrapEnvironment } from './environment.js'
+import { bootstrapMongo } from './mongodb.js'
 
 export async function bootstrapApp() {
   bootstrapEnvironment()

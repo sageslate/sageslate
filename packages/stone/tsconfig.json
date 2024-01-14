@@ -1,12 +1,12 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "composite": true,
     "module": "NodeNext",
-    "types": ["node"],
+    "moduleResolution": "NodeNext",
     "rootDir": "src",
     "outDir": "dist",
     "lib": ["ESNext"],
     "target": "ESNext"
-  }
+  },
+  "include": ["src/**/*.ts", "src/errors.ts", "src/main.ts"]
 }

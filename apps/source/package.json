@@ -4,8 +4,9 @@
   "description": "SageSource - Server",
   "main": "src/main.ts",
   "scripts": {
+    "graphql:fix": "sage-fix-esm-imports src/schema",
+    "graphql:lint": "pnpm run lint:path -- src/schema",
     "lint:path": "eslint --ext .ts --fix",
-    "lint:graphql": "pnpm run lint:path -- src/schema",
     "lint": "pnpm run lint:path -- .",
     "dev": "tsx watch --clear-screen=false src/main"
   },
@@ -28,6 +29,8 @@
   },
   "dependencies": {
     "@apollo/server": "^4.10.0",
+    "@sageslate/stone": "workspace:*",
+    "@sageslate/tools": "workspace:*",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "graphql": "^16.8.1",
