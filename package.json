@@ -9,6 +9,7 @@
     "generate": "run-s -l generate:*",
     "dev:generate:graphql": "nodemon --config nodemon.graphql.json",
     "dev:generate": "run-p -l dev:generate:graphql",
+    "dev:server": "cd apps/source && pnpm dev",
     "dev": "run-p -l dev:*"
   },
   "license": "MIT",

@@ -1,4 +1,5 @@
+import { bootstrapApollo } from './apollo'
+
 export async function bootstrapApp() {
-  await Promise.resolve()
-  console.log('Hello, world!')
+  await bootstrapApollo()
 }

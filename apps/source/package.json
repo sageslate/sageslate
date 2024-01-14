@@ -6,7 +6,8 @@
   "scripts": {
     "lint:path": "eslint --ext .ts --fix",
     "lint:graphql": "pnpm run lint:path -- src/schema",
-    "lint": "pnpm run lint:path -- ."
+    "lint": "pnpm run lint:path -- .",
+    "dev": "tsx watch src/main --clear-screen=false"
   },
   "keywords": [
     "vtt"

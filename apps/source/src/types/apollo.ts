@@ -1,3 +1,3 @@
 export type ApolloContext = {
-  hello: 'world'
+  hello: string
 }
