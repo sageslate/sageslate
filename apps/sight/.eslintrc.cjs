@@ -5,7 +5,12 @@ module.exports = {
   extends: ['@sageslate/standards'],
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['./tsconfig.app.json', './tsconfig.scripts.json'],
+    project: [
+      './tsconfig.app.json',
+      './tsconfig.node.json',
+      './tsconfig.vitest.json',
+      './e2e/tsconfig.json'
+    ],
     parser: '@typescript-eslint/parser'
   },
   rules: {},

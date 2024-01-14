@@ -9,5 +9,5 @@
   "editor.detectIndentation": false,
   "vue.complete.casing.props": "camel",
   "vue.complete.casing.tags": "pascal",
-  "cSpell.words": ["Codegen", "Moraru", "pkgroll", "sageslate", "tailwindcss"]
+  "cSpell.words": ["Codegen", "Moraru", "Pinia", "pkgroll", "sageslate", "tailwindcss"]
 }

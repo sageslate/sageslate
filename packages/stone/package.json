@@ -7,7 +7,9 @@
   "type": "module",
   "scripts": {
     "build": "pkgroll",
-    "dev": "pkgroll --watch"
+    "dev": "pkgroll --watch",
+    "lint:path": "eslint --ext .ts --fix",
+    "lint": "pnpm run lint:path -- ."
   },
   "keywords": [
     "vtt"

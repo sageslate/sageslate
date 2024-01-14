@@ -11,9 +11,15 @@
     "dev:generate:graphql": "nodemon --config nodemon.graphql.json",
     "dev:generate": "run-p -l dev:generate:graphql",
     "dev:server": "cd apps/source && pnpm dev",
+    "dev:sight": "cd apps/sight && pnpm dev",
     "dev:stone": "cd packages/stone && pnpm dev",
     "dev:tools": "cd packages/tools && pnpm dev",
-    "dev": "NODE_ENV=development run-p -l dev:*"
+    "dev": "NODE_ENV=development run-p -l dev:*",
+    "lint:sever": "cd apps/source && pnpm lint",
+    "lint:sight": "cd apps/sight && pnpm lint",
+    "lint:stone": "cd packages/stone && pnpm lint",
+    "lint:tools": "cd packages/tools && pnpm lint",
+    "lint": "run-s -l lint:*"
   },
   "keywords": [
     "vtt"

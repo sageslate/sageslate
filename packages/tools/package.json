@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "build": "pkgroll",
-    "dev": "pkgroll --watch"
+    "dev": "pkgroll --watch",
+    "lint:path": "eslint --ext .ts --fix",
+    "lint": "pnpm run lint:path -- ."
   },
   "bin": {
     "sage-fix-esm-imports": "./dist/bin/fixEsmImports.js"
