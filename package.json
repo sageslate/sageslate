@@ -1,0 +1,27 @@
+{
+  "name": "sageslate",
+  "version": "0.1.0",
+  "description": "Simple VTT",
+  "scripts": {
+    "dev:rock": "cd packages/rock && pnpm dev",
+    "dev:sight": "cd packages/sight && pnpm dev",
+    "dev:source": "cd packages/source && pnpm dev",
+    "dev": "run-p -l dev:*",
+    "lint:rock": "cd packages/rock && pnpm lint",
+    "lint:sight": "cd packages/sight && pnpm lint",
+    "lint:source": "cd packages/source && pnpm lint",
+    "lint": "run-s -l lint:*"
+  },
+  "license": "MIT",
+  "author": "Nicolai Moraru <ceo@nickmessing.com>",
+  "private": true,
+  "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.7.2",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/plugin-helpers": "^5.0.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "npm-run-all2": "^6.1.1",
+    "prettier": "^3.2.1",
+    "prettier-plugin-tailwindcss": "^0.5.11"
+  }
+}

@@ -1,0 +1,24 @@
+input AdminSetupInput {
+  password: String!
+}
+
+type AdminAuthenticationResult {
+  token: String!
+}
+
+type AdminQuery {
+  isAuthenticated: Boolean!
+}
+
+type AdminMutation {
+  setup(input: AdminSetupInput!): AdminAuthenticationResult!
+  login(password: String!): AdminAuthenticationResult!
+}
+
+type Query {
+  admin: AdminQuery!
+}
+
+type Mutation {
+  admin: AdminMutation!
+}

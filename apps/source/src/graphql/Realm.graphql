@@ -1,0 +1,16 @@
+input RealmCreateInput {
+  id: String!
+
+  name: String!
+  folderName: String!
+}
+
+type Realm {
+  id: ID!
+
+  name: String!
+  folderName: String!
+
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}

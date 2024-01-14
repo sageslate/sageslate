@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "apollographql.vscode-apollo",
+    "wmaurer.change-case",
+    "streetsidesoftware.code-spell-checker",
+    "naumovs.color-highlight",
+    "mikestead.dotenv",
+    "dbaeumer.vscode-eslint",
+    "github.vscode-github-actions",
+    "github.vscode-pull-request-github",
+    "esbenp.prettier-vscode",
+    "meganrogge.template-string-converter",
+    "wayou.vscode-todo-highlight",
+    "vue.vscode-typescript-vue-plugin",
+    "pflannery.vscode-versionlens",
+    "vue.volar"
+  ]
+}

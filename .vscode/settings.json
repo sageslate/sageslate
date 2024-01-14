@@ -1,0 +1,13 @@
+{
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+  "typescript.tsdk": "./packages/source/node_modules/typescript/lib",
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "vue.complete.casing.props": "camel",
+  "vue.complete.casing.tags": "pascal",
+  "cSpell.words": ["Codegen", "Moraru", "sageslate", "tailwindcss"]
+}
