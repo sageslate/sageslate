@@ -59,6 +59,9 @@ importers:
       graphql-scalars:
         specifier: ^1.22.4
         version: 1.22.4(graphql@16.8.1)
+      jose:
+        specifier: ^5.2.0
+        version: 5.2.0
       mongodb:
         specifier: ^6.3.0
         version: 6.3.0
@@ -5049,7 +5052,6 @@ packages:
 
   /jose@5.2.0:
     resolution: {integrity: sha512-oW3PCnvyrcm1HMvGTzqjxxfnEs9EoFOFWi2HsEGhlFVOXxTE3K9GKWVMFoFw06yPUqwpvEWic1BmtUZBI/tIjw==}
-    dev: true
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

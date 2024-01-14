@@ -5,6 +5,7 @@ import type { PascalCase } from 'type-fest'
 
 export const ErrorCode = {
   APP_ALREADY_INITIALIZED: 'APP_ALREADY_INITIALIZED',
+  APP_NOT_INITIALIZED: 'APP_NOT_INITIALIZED',
 } as const
 export type ErrorCode = (typeof ErrorCode)[keyof typeof ErrorCode]
 
