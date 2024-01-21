@@ -1,5 +1,7 @@
 import { MongoClient } from 'mongodb'
 
+import type { ConnectedModels } from '../types/apollo.js'
+
 export async function bootstrapMongo() {
   const uri = process.env.DATABASE_URL
   const databaseName = process.env.DATABASE_NAME
@@ -13,5 +15,11 @@ export async function bootstrapMongo() {
 
   const client = new MongoClient(uri)
   await client.connect()
-  return client.db(databaseName)
+  const database = client.db(databaseName)
+
+  const models: ConnectedModels = {
+    realm: database.collection('realm'),
+  }
+
+  return { database, models }
 }

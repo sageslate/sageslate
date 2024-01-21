@@ -12,9 +12,18 @@
   "errors": {
     "app-already-initialized": "By Merlin's beard! This realm has already been conjured!",
     "app-not-initialized": "Hold your horses, adventurer! We haven't even set up camp yet!",
+    "invalid-password": "Ah! That's not the magic word. Try again, with more mystique!",
     "network-error": "The ethereal network is tangled! Unable to send carrier pigeons!",
-    "password-too-short": "Your secret phrase must be longer to keep the dragons at bay!",
-    "unknown-error": "We've stumbled into uncharted territory! An unknown enigma has occurred!"
+    "unauthorized": "Stop right there! You shall not pass without the proper incantation!",
+    "unknown-error": "We've stumbled into uncharted territory! An unknown enigma has occurred!",
+    "validation-folder-name-already-exists": "By the ancient archives! This folder name is already taken in our scrolls. Try a name not yet written in legend!",
+    "validation-folder-name-invalid": "This folder name is as mythical as a unicorn! Please choose another.",
+    "validation-folder-name-too-long": "Even the longest scroll in the kingdom isn't this long! Shorten the folder name, brave scribe.",
+    "validation-folder-name-too-short": "This folder name is shorter than a gnome's beard! Please elongate it.",
+    "validation-name-too-long": "Your name rivals the length of ancient dragons! Please shorten it.",
+    "validation-name-too-short": "Is that a name or an incantation? It's too short for us mere mortals!",
+    "validation-object-id-invalid": "This object ID is as elusive as a leprechaun! Check and try again.",
+    "validation-password-too-short": "Your secret phrase must be longer to keep the dragons at bay!"
   },
   "alerts": {
     "app-initialization-success": "Huzzah! The scrolls have unfurled and the magic is alive! Your journey through the mystical realm begins!"

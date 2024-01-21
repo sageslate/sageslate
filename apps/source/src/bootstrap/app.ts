@@ -4,6 +4,6 @@ import { bootstrapMongo } from './mongodb.js'
 
 export async function bootstrapApp() {
   bootstrapEnvironment()
-  const database = await bootstrapMongo()
-  await bootstrapApollo({ database })
+  const { database, models } = await bootstrapMongo()
+  await bootstrapApollo({ database, models })
 }

@@ -1,5 +1,6 @@
 import { createServer } from 'node:http'
 
+import { doesExist } from '@sageslate/stone'
 import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core'
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
@@ -7,16 +8,19 @@ import express from 'express'
 import { resolvers } from '../schema/graphql/resolvers.generated.js'
 import { typeDefs } from '../schema/typeDefs.generated.js'
 import { configurationToolkit } from '../utils/configuration.js'
+import { verifyToken } from '../utils/jsonWebToken.js'
 
-import type { ApolloContext } from '../types/apollo.js'
+import type { ApolloContext, ConnectedModels } from '../types/apollo.js'
+import type { UserInfo } from '../utils/jsonWebToken.js'
 import type { Db as Database } from 'mongodb'
 import type { AddressInfo } from 'node:net'
 
 export type BootstrapApolloOptions = {
   database: Database
+  models: ConnectedModels
 }
 
-export async function bootstrapApollo({ database }: BootstrapApolloOptions) {
+export async function bootstrapApollo({ database, models }: BootstrapApolloOptions) {
   const configuration = configurationToolkit(database)
 
   const app = express()
@@ -31,12 +35,24 @@ export async function bootstrapApollo({ database }: BootstrapApolloOptions) {
       ApolloServerPluginDrainHttpServer({ httpServer }),
       ApolloServerPluginLandingPageLocalDefault({ embed: true }),
     ],
-    context: ({ req, res }) => {
+    context: async ({ req, res }) => {
+      let user: UserInfo | undefined
+
+      if (doesExist(req?.headers.authorization) && req.headers.authorization.startsWith('Bearer ')) {
+        try {
+          const token = req.headers.authorization.split(' ')[1]
+          user = await verifyToken(await configuration.get('jsonWebTokenSecret'), token)
+        } catch {
+          /* do nothing */
+        }
+      }
       return {
         req,
         res,
         database,
         configuration,
+        models,
+        user,
       }
     },
   })

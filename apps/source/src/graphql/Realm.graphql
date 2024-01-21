@@ -14,3 +14,11 @@ type Realm {
   createdAt: DateTime!
   updatedAt: DateTime!
 }
+
+type AdminMutation {
+  createRealm(input: RealmCreateInput!): Realm!
+}
+
+type AdminQuery {
+  realms: [Realm!]!
+}

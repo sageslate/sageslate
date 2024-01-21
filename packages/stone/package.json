@@ -9,7 +9,8 @@
     "build": "pkgroll",
     "dev": "pkgroll --watch",
     "lint:path": "eslint --ext .ts --fix",
-    "lint": "pnpm run lint:path -- ."
+    "lint": "pnpm run lint:path -- .",
+    "type-check": "tsc --noEmit"
   },
   "keywords": [
     "vtt"

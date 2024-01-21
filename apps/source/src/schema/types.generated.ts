@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { AdminMutationMapper, AdminQueryMapper } from "./../graphql/Admin.mappers.js";
+import { RealmMapper } from "./../graphql/Realm.mappers.js";
 import { ApolloContext } from '../types/apollo.js';
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined;
@@ -26,8 +27,14 @@ export type AdminAuthenticationResult = {
 
 export type AdminMutation = {
   __typename?: 'AdminMutation';
+  createRealm: Realm;
   login: AdminAuthenticationResult;
   setup: AdminAuthenticationResult;
+};
+
+
+export type AdminMutationcreateRealmArgs = {
+  input: RealmCreateInput;
 };
 
 
@@ -43,6 +50,7 @@ export type AdminMutationsetupArgs = {
 export type AdminQuery = {
   __typename?: 'AdminQuery';
   isAuthenticated: Scalars['Boolean']['output'];
+  realms: Array<Realm>;
 };
 
 export type AdminSetupInput = {
@@ -155,7 +163,7 @@ export type ResolversTypes = {
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
-  Realm: ResolverTypeWrapper<Realm>;
+  Realm: ResolverTypeWrapper<RealmMapper>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   RealmCreateInput: RealmCreateInput;
 };
@@ -171,7 +179,7 @@ export type ResolversParentTypes = {
   DateTime: Scalars['DateTime']['output'];
   Mutation: {};
   Query: {};
-  Realm: Realm;
+  Realm: RealmMapper;
   ID: Scalars['ID']['output'];
   RealmCreateInput: RealmCreateInput;
 };
@@ -182,6 +190,7 @@ export type AdminAuthenticationResultResolvers<ContextType = ApolloContext, Pare
 };
 
 export type AdminMutationResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminMutation'] = ResolversParentTypes['AdminMutation']> = {
+  createRealm?: Resolver<ResolversTypes['Realm'], ParentType, ContextType, RequireFields<AdminMutationcreateRealmArgs, 'input'>>;
   login?: Resolver<ResolversTypes['AdminAuthenticationResult'], ParentType, ContextType, RequireFields<AdminMutationloginArgs, 'password'>>;
   setup?: Resolver<ResolversTypes['AdminAuthenticationResult'], ParentType, ContextType, RequireFields<AdminMutationsetupArgs, 'input'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -189,6 +198,7 @@ export type AdminMutationResolvers<ContextType = ApolloContext, ParentType exten
 
 export type AdminQueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminQuery'] = ResolversParentTypes['AdminQuery']> = {
   isAuthenticated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  realms?: Resolver<Array<ResolversTypes['Realm']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

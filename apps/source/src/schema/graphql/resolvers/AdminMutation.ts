@@ -1,29 +1,76 @@
+import { Errors, doesExist, doesNotExist } from '@sageslate/stone'
+import { compare } from 'bcrypt'
+import { ObjectId } from 'mongodb'
 import { z } from 'zod'
 
-import { createAdminToken } from '../../../utils/jsonWebToken.js'
+import { assertIsAdmin } from '../../../utils/assertions.js'
+import { createToken } from '../../../utils/jsonWebToken.js'
 import { rules } from '../../../utils/validation.js'
 
 import type { AdminMutationResolvers } from './../../types.generated.js'
 
-const inputSchemas = {
+const argumentSchemas = {
+  login: z.object({
+    password: z.string(),
+  }),
   setup: z.object({
     input: z.object({
       password: rules.password,
     }),
   }),
+  createRealm: z.object({
+    input: z.object({
+      id: rules.objectId,
+      name: rules.realmName,
+      folderName: rules.realmFolderName,
+    }),
+  }),
 }
 
 export const AdminMutation: AdminMutationResolvers = {
-  login: () => {
-    /* AdminMutation.login resolver is required because AdminMutation.login exists but AdminMutationMapper.login does not */
+  login: async (_parent, argument, { configuration }) => {
+    const { password } = argumentSchemas.login.parse(argument)
+
+    const hash = await configuration.get('adminPassword')
+    const isCorrectPassword = await compare(password, hash)
+
+    if (!isCorrectPassword) {
+      throw new Errors.InvalidPassword()
+    }
+
+    return { token: await createToken(await configuration.get('jsonWebTokenSecret'), { roles: ['admin'] }) }
   },
-  setup: async (_, input, { configuration }) => {
+  setup: async (_parent, argument, { configuration }) => {
     const {
       input: { password },
-    } = inputSchemas.setup.parse(input)
+    } = argumentSchemas.setup.parse(argument)
 
     await configuration.initialize(password)
 
-    return { token: await createAdminToken(await configuration.get('jsonWebTokenSecret')) }
+    return { token: await createToken(await configuration.get('jsonWebTokenSecret'), { roles: ['admin'] }) }
+  },
+  createRealm: async (_parent, argument, { models, user }) => {
+    assertIsAdmin(user)
+    const {
+      input: { id, ...rest },
+    } = argumentSchemas.createRealm.parse(argument)
+
+    if (doesExist(await models.realm.findOne({ folderName: rest.folderName }))) {
+      throw new Errors.ValidationFolderNameAlreadyExists()
+    }
+
+    await models.realm.insertOne({
+      _id: new ObjectId(id),
+      ...rest,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    })
+    const createdRealm = await models.realm.findOne({ _id: new ObjectId(id) })
+
+    if (doesNotExist(createdRealm)) {
+      throw new Errors.UnknownError()
+    }
+
+    return createdRealm
   },
 }

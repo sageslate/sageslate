@@ -8,7 +8,8 @@
     "graphql:lint": "pnpm run lint:path src/schema",
     "lint:path": "eslint --ext .ts --fix",
     "lint": "pnpm run lint:path -- .",
-    "dev": "tsx watch --clear-screen=false src/main"
+    "dev": "tsx watch --clear-screen=false src/main",
+    "type-check": "tsc --noEmit -p tsconfig.app.json"
   },
   "keywords": [
     "vtt"
@@ -28,6 +29,7 @@
     "graphql-scalars": "^1.22.4",
     "jose": "^5.2.0",
     "mongodb": "^6.3.0",
+    "type-fest": "^4.9.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {

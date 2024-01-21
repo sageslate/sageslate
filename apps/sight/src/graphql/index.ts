@@ -28,8 +28,13 @@ export type AdminAuthenticationResult = {
 
 export type AdminMutation = {
   __typename?: 'AdminMutation'
+  createRealm: Realm
   login: AdminAuthenticationResult
   setup: AdminAuthenticationResult
+}
+
+export type AdminMutationCreateRealmArguments = {
+  input: RealmCreateInput
 }
 
 export type AdminMutationLoginArguments = {
@@ -43,6 +48,7 @@ export type AdminMutationSetupArguments = {
 export type AdminQuery = {
   __typename?: 'AdminQuery'
   isAuthenticated: Scalars['Boolean']['output']
+  realms: Array<Realm>
 }
 
 export type AdminSetupInput = {

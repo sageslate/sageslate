@@ -11,22 +11,20 @@ export type Configuration = {
   jsonWebTokenSecret: string
 }
 export type ConfigurationDocument = {
-  [Key in keyof Configuration]: {
-    key: Key
-    value: Configuration[Key]
-  }
-}[keyof Configuration]
+  key: keyof Configuration
+  value: string | number
+}
 
 export function configurationToolkit(database: Database) {
   async function set<Key extends keyof Configuration>(key: Key, value: Configuration[Key]) {
-    const configurationCollection = database.collection('configuration')
+    const configurationCollection = database.collection<ConfigurationDocument>('configuration')
     const existingValue = await configurationCollection.findOne({ key })
     await (existingValue
       ? configurationCollection.updateOne({ key }, { $set: { value } })
       : configurationCollection.insertOne({ key, value }))
   }
   async function get<Key extends keyof Configuration>(key: Key): Promise<Configuration[Key]> {
-    const configurationCollection = database.collection('configuration')
+    const configurationCollection = database.collection<ConfigurationDocument>('configuration')
     const value = await configurationCollection.findOne({ key })
     if (!value) {
       throw new Errors.AppNotInitialized()
