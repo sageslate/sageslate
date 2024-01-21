@@ -1,1 +1,3 @@
 .eslintrc.cjs
+typed-router.d.ts
+dist

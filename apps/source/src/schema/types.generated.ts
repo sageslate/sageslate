@@ -1,8 +1,8 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 import { AdminMutationMapper, AdminQueryMapper } from "./../graphql/Admin.mappers.js";
 import { ApolloContext } from '../types/apollo.js';
-export type Maybe<T> = T | null | undefined;
-export type InputMaybe<T> = T | null | undefined;
+export type Maybe<T> = T | undefined;
+export type InputMaybe<T> = T | undefined;
 export type Exact<T extends {[key: string]: unknown;}> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -43,7 +43,6 @@ export type AdminMutationsetupArgs = {
 export type AdminQuery = {
   __typename?: 'AdminQuery';
   isAuthenticated: Scalars['Boolean']['output'];
-  isInitialized: Scalars['Boolean']['output'];
 };
 
 export type AdminSetupInput = {
@@ -58,6 +57,7 @@ export type Mutation = {
 export type Query = {
   __typename?: 'Query';
   admin: AdminQuery;
+  isInitialized: Scalars['Boolean']['output'];
 };
 
 export type Realm = {
@@ -189,7 +189,6 @@ export type AdminMutationResolvers<ContextType = ApolloContext, ParentType exten
 
 export type AdminQueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminQuery'] = ResolversParentTypes['AdminQuery']> = {
   isAuthenticated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  isInitialized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -203,6 +202,7 @@ export type MutationResolvers<ContextType = ApolloContext, ParentType extends Re
 
 export type QueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   admin?: Resolver<ResolversTypes['AdminQuery'], ParentType, ContextType>;
+  isInitialized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 };
 
 export type RealmResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Realm'] = ResolversParentTypes['Realm']> = {

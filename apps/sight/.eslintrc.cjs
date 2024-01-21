@@ -13,15 +13,19 @@ module.exports = {
     ],
     parser: '@typescript-eslint/parser'
   },
-  rules: {},
+  rules: {
+    'import/no-unresolved': [
+      2,
+      {
+        ignore: ['vue-router/auto']
+      }
+    ]
+  },
   settings: {
     'import/resolver': {
-      node: {
-        extensions: ['.ts']
-      },
       typescript: {
         alwaysTryTypes: true,
-        project: './tsconfig.json'
+        project: ['./tsconfig.app.json', './tsconfig.node.json', './tsconfig.vitest.json']
       }
     }
   }

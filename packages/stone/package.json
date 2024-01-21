@@ -24,7 +24,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "change-case": "^5.4.1",
+    "change-case": "^5.4.2",
     "graphql": "^16.8.1",
     "type-fest": "^4.9.0"
   }

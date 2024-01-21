@@ -4,12 +4,16 @@
   "description": "Simple VTT",
   "scripts": {
     "generate:graphql:00_codegen": "graphql-codegen-esm",
-    "generate:graphql:01_fix-imports": "cd apps/source && pnpm graphql:fix",
-    "generate:graphql:02_lint": "cd apps/source && pnpm graphql:lint",
-    "generate:graphql": "run-s -l generate:graphql:*",
-    "generate": "run-s -l generate:*",
+    "generate:graphql:01_fix:source": "cd apps/source && pnpm graphql:fix",
+    "generate:graphql:01_fix:sight": "cd apps/sight && pnpm graphql:fix",
+    "generate:graphql:01_fix": "run-p generate:graphql:01_fix:*",
+    "generate:graphql:02_lint:source": "cd apps/source && pnpm graphql:lint",
+    "generate:graphql:02_lint:sight": "cd apps/sight && pnpm graphql:lint",
+    "generate:graphql:02_lint": "run-p generate:graphql:02_lint:*",
+    "generate:graphql": "run-s generate:graphql:*",
+    "generate": "run-s generate:*",
     "dev:generate:graphql": "nodemon --config nodemon.graphql.json",
-    "dev:generate": "run-p -l dev:generate:graphql",
+    "dev:generate": "run-p dev:generate:graphql",
     "dev:server": "cd apps/source && pnpm dev",
     "dev:sight": "cd apps/sight && pnpm dev",
     "dev:stone": "cd packages/stone && pnpm dev",
@@ -19,7 +23,7 @@
     "lint:sight": "cd apps/sight && pnpm lint",
     "lint:stone": "cd packages/stone && pnpm lint",
     "lint:tools": "cd packages/tools && pnpm lint",
-    "lint": "run-s -l lint:*"
+    "lint": "run-p -l lint:*"
   },
   "keywords": [
     "vtt"
@@ -29,13 +33,17 @@
   "private": true,
   "devDependencies": {
     "@eddeee888/gcg-typescript-resolver-files": "^0.7.2",
+    "@graphql-codegen/add": "^5.0.0",
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/plugin-helpers": "^5.0.1",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-vue-apollo": "^4.1.0",
     "@tsconfig/node20": "^20.1.2",
     "cz-conventional-changelog": "^3.3.0",
-    "nodemon": "^3.0.2",
+    "nodemon": "^3.0.3",
     "npm-run-all2": "^6.1.1",
-    "prettier": "^3.2.1",
+    "prettier": "^3.2.4",
     "prettier-plugin-tailwindcss": "^0.5.11"
   }
 }

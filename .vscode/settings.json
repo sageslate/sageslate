@@ -9,5 +9,11 @@
   "editor.detectIndentation": false,
   "vue.complete.casing.props": "camel",
   "vue.complete.casing.tags": "pascal",
-  "cSpell.words": ["Codegen", "Moraru", "Pinia", "pkgroll", "sageslate", "tailwindcss"]
+  "cSpell.words": ["bson", "Codegen", "Moraru", "Pinia", "pkgroll", "sagedash", "sageslate", "tailwindcss"],
+  "i18n-ally.enabledFrameworks": ["vue"],
+  "i18n-ally.localesPaths": ["apps/sight/src/locales"],
+  "i18n-ally.extract.autoDetect": true,
+  "i18n-ally.extract.keyMaxLength": 80,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.displayLanguage": "en-US"
 }

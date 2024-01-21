@@ -1,0 +1,3 @@
+query IsInitialized {
+  isInitialized
+}

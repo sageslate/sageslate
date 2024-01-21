@@ -126,7 +126,7 @@ module.exports = {
           'EVENTS',
           'CONTENT',
         ],
-        alphabetical: false,
+        alphabetical: true,
       },
     ],
     '@typescript-eslint/no-misused-promises': [
@@ -137,7 +137,11 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
+    ],
+    'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
     'unicorn/filename-case': [
       'error',
       {

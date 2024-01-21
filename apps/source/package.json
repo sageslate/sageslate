@@ -5,7 +5,7 @@
   "main": "src/main.ts",
   "scripts": {
     "graphql:fix": "sage-fix-esm-imports src/schema",
-    "graphql:lint": "pnpm run lint:path -- src/schema",
+    "graphql:lint": "pnpm run lint:path src/schema",
     "lint:path": "eslint --ext .ts --fix",
     "lint": "pnpm run lint:path -- .",
     "dev": "tsx watch --clear-screen=false src/main"
@@ -16,26 +16,31 @@
   "license": "MIT",
   "author": "Nicolai Moraru <ceo@nickmessing.com>",
   "type": "module",
-  "devDependencies": {
-    "@sageslate/eslint-config-standards": "workspace:*",
-    "@tsconfig/node20": "^20.1.2",
-    "@types/bcrypt": "^5.0.2",
-    "@types/node": "^20.11.0",
-    "eslint": "^8.56.0",
-    "nodemon": "^3.0.2",
-    "npm-run-all2": "^6.1.1",
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
-  },
   "dependencies": {
     "@apollo/server": "^4.10.0",
     "@sageslate/stone": "workspace:*",
-    "@sageslate/tools": "workspace:*",
+    "apollo-server-core": "^3.13.0",
+    "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.3.2",
+    "express": "^4.18.2",
     "graphql": "^16.8.1",
     "graphql-scalars": "^1.22.4",
     "jose": "^5.2.0",
-    "mongodb": "^6.3.0"
+    "mongodb": "^6.3.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@sageslate/eslint-config-standards": "workspace:*",
+    "@sageslate/tools": "workspace:*",
+    "@tsconfig/node20": "^20.1.2",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.5",
+    "eslint": "^8.56.0",
+    "nodemon": "^3.0.3",
+    "npm-run-all2": "^6.1.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
   }
 }

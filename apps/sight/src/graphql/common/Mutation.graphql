@@ -1,0 +1,7 @@
+mutation Initialize($input: AdminSetupInput!) {
+  admin {
+    setup(input: $input) {
+      token
+    }
+  }
+}

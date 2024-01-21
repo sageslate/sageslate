@@ -1,0 +1,22 @@
+{
+  "common": {
+    "brand": "SageSlate",
+    "submit": "Submit"
+  },
+  "setup": {
+    "title": "@:common.brand Setup",
+    "admin-password": "Admin Password",
+    "admin-password-placeholder": "SuperS3cur3Passw0rd",
+    "display-password": "Display Password"
+  },
+  "errors": {
+    "app-already-initialized": "By Merlin's beard! This realm has already been conjured!",
+    "app-not-initialized": "Hold your horses, adventurer! We haven't even set up camp yet!",
+    "network-error": "The ethereal network is tangled! Unable to send carrier pigeons!",
+    "password-too-short": "Your secret phrase must be longer to keep the dragons at bay!",
+    "unknown-error": "We've stumbled into uncharted territory! An unknown enigma has occurred!"
+  },
+  "alerts": {
+    "app-initialization-success": "Huzzah! The scrolls have unfurled and the magic is alive! Your journey through the mystical realm begins!"
+  }
+}
