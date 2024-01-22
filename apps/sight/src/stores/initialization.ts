@@ -1,74 +1,78 @@
+import { doesNotExist } from '@sageslate/stone'
 import { DefaultApolloClient } from '@vue/apollo-composable'
-import { noop } from '@vueuse/core'
+import { until } from '@vueuse/core'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router/auto'
 
 import { strictInject } from '@/atoms/utils/strictInject'
-import { useInitializeMutation, IsInitializedDocument } from '@/graphql'
+import { InitializedDocument, useInitializeMutation, useInitializedQuery } from '@/graphql'
 
 import { AlertType, useAlertsStore } from './alerts'
+import { useAuthenticationStore } from './authentication'
 
-import type { IsInitializedQuery } from '@/graphql'
-import type { ApolloClient, NormalizedCacheObject } from '@apollo/client'
+import type { InitializedQuery } from '@/graphql'
+import type { NormalizedCacheObject, ApolloClient } from '@apollo/client'
 
 export enum InitializedState {
+  Loading,
   Error,
   Initialized,
   Uninitialized,
 }
 
 export const useInitializationStore = defineStore('initialization', () => {
-  const router = useRouter()
-  const alertsStore = useAlertsStore()
-
-  const { t } = useI18n()
-
-  const { mutate, loading: isInitializing } = useInitializeMutation()
-
   const apolloClient = strictInject<ApolloClient<NormalizedCacheObject>>(DefaultApolloClient)
 
-  const initializedState = ref<InitializedState>()
-  const promiseToWait = runIsInitializedQuery()
+  const alertsStore = useAlertsStore()
+  const authenticationStore = useAuthenticationStore()
 
-  async function runIsInitializedQuery() {
-    try {
-      const resource = await apolloClient.query<IsInitializedQuery>({
-        query: IsInitializedDocument,
-        fetchPolicy: 'no-cache',
-      })
+  const router = useRouter()
+  const { t } = useI18n()
 
-      initializedState.value = resource.data.isInitialized
-        ? InitializedState.Initialized
-        : InitializedState.Uninitialized
-    } catch {
-      initializedState.value = InitializedState.Error
+  const { initializedQueryResult, initializedQueryError, isInitializedQueryLoading } = useInitializedQuery()
+  const { initialize, isInitializeMutationLoading, onInitializeMutationDone } = useInitializeMutation()
+
+  onInitializeMutationDone(response => {
+    if (doesNotExist(response.data?.admin.setup.token)) {
+      return
     }
-  }
-  async function getInitializedState() {
-    await promiseToWait
-    return initializedState.value!
+
+    authenticationStore.setToken(response.data.admin.setup.token)
+
+    apolloClient.writeQuery<InitializedQuery>({
+      query: InitializedDocument,
+      data: {
+        isInitialized: true,
+      },
+    })
+
+    alertsStore.message({
+      message: t('alerts.app-initialization-success'),
+      type: AlertType.Success,
+    })
+    void router.push('/')
+  })
+
+  async function waitForStoreReady() {
+    await until(isInitializedQueryLoading).toBe(false)
   }
 
-  async function initialize(password: string) {
-    try {
-      await mutate({ input: { password } })
-      initializedState.value = InitializedState.Initialized
-      alertsStore.message({
-        message: t('alerts.app-initialization-success'),
-        type: AlertType.Success,
-      })
-      void router.push('/')
-    } catch {
-      noop()
-    }
-  }
+  const initializedState = computed(() =>
+    isInitializedQueryLoading.value
+      ? InitializedState.Loading
+      : initializedQueryError.value
+        ? InitializedState.Error
+        : initializedQueryResult.value?.isInitialized
+          ? InitializedState.Initialized
+          : InitializedState.Uninitialized,
+  )
 
   return {
+    waitForStoreReady,
     initializedState,
-    isInitializing,
-    getInitializedState,
-    initialize,
+    initialize: (password: string) => initialize({ input: { password } }),
+    isInitializeMutationLoading,
   }
 })

@@ -11,7 +11,7 @@
   },
   "bin": {
     "sage-fix-esm-imports": "./dist/bin/fixEsmImports.js",
-    "sage-fix-abbreviations": "./dist/bin/fixAbbreviations.js"
+    "sage-fix-client": "./dist/bin/fixClient.js"
   },
   "keywords": [
     "vtt"
@@ -34,6 +34,7 @@
     "@babel/traverse": "^7.23.7",
     "@babel/types": "^7.23.6",
     "@types/babel__generator": "^7.6.8",
-    "@types/babel__traverse": "^7.20.5"
+    "@types/babel__traverse": "^7.20.5",
+    "@sageslate/stone": "workspace:*"
   }
 }

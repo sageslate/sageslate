@@ -2,6 +2,7 @@ import { doesExist } from '@sageslate/stone'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { routes } from 'vue-router/auto/routes'
 
+import { useAuthenticationStore } from '@/stores/authentication'
 import { useInitializationStore, InitializedState } from '@/stores/initialization'
 
 export interface SageRouteMeta {
@@ -9,6 +10,8 @@ export interface SageRouteMeta {
   isPreInitializedOnly?: boolean
   isErrorPage?: boolean
   isInitialStatePage?: boolean
+  isGuestOnly?: boolean
+  isAdminOnly?: boolean
 }
 
 declare module 'vue-router' {
@@ -21,32 +24,55 @@ export const router = createRouter({
 
 router.beforeEach(async to => {
   const initializationStore = useInitializationStore()
-  const initializedState = await initializationStore.getInitializedState()
+  const authenticationStore = useAuthenticationStore()
+
+  await Promise.all([initializationStore.waitForStoreReady(), authenticationStore.waitForStoreReady()])
+
   const errorRoute = routes.find(route => route.meta?.isInitialStatePage && route.meta.isErrorPage)
   const preInitializedRoute = routes.find(route => route.meta?.isInitialStatePage && route.meta.isPreInitializedOnly)
-  const initializedRoute = routes.find(route => route.meta?.isInitialStatePage && route.meta.isInitializedOnly)
+  const initializedRouteGuest = routes.find(
+    route => route.meta?.isInitialStatePage && route.meta.isInitializedOnly && route.meta.isGuestOnly,
+  )
+  const initializedRouteAdmin = routes.find(
+    route => route.meta?.isInitialStatePage && route.meta.isInitializedOnly && route.meta.isAdminOnly,
+  )
+
   if (!doesExist(errorRoute)) {
     throw new Error('No error route found')
   }
   if (!doesExist(preInitializedRoute)) {
     throw new Error('No pre initialized route found')
   }
-  if (!doesExist(initializedRoute)) {
-    throw new Error('No initialized route found')
+  if (!doesExist(initializedRouteGuest)) {
+    throw new Error('No initialized route found for guest')
   }
-  if (to.meta.isInitializedOnly && initializedState !== InitializedState.Initialized) {
+  if (!doesExist(initializedRouteAdmin)) {
+    throw new Error('No initialized route found for admin')
+  }
+
+  if (to.meta.isInitializedOnly && initializationStore.initializedState !== InitializedState.Initialized) {
     return {
       path: preInitializedRoute.path,
     }
   }
-  if (to.meta.isPreInitializedOnly && initializedState !== InitializedState.Uninitialized) {
+  if (to.meta.isPreInitializedOnly && initializationStore.initializedState !== InitializedState.Uninitialized) {
     return {
-      path: initializedRoute.path,
+      path: authenticationStore.isAdmin ? initializedRouteAdmin.path : initializedRouteGuest.path,
     }
   }
-  if (to.meta.isErrorPage && initializedState !== InitializedState.Error) {
+  if (to.meta.isErrorPage && initializationStore.initializedState !== InitializedState.Error) {
     return {
       path: errorRoute.path,
+    }
+  }
+  if (to.meta.isGuestOnly && authenticationStore.isAdmin) {
+    return {
+      path: initializedRouteAdmin.path,
+    }
+  }
+  if (to.meta.isAdminOnly && !authenticationStore.isAdmin) {
+    return {
+      path: initializedRouteGuest.path,
     }
   }
 })

@@ -2,7 +2,7 @@ import { doesExist } from '@sageslate/stone'
 
 import { assertIsAdmin } from '../../../utils/assertions.js'
 
-import type { AdminQueryResolvers } from './../../types.generated.js'
+import type { AdminQueryResolvers } from '../../types.generated.js'
 
 export const AdminQuery: AdminQueryResolvers = {
   isAuthenticated: (_parent, _argument, { user }) => {

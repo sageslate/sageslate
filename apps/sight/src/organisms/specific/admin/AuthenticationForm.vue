@@ -10,9 +10,9 @@ import SageIcon from '@/atoms/common/elements/SageIcon.vue'
 import SageForm from '@/atoms/forms/containers/SageForm.vue'
 import SageInput from '@/molecules/forms/SageInput.vue'
 import SageToggle from '@/molecules/forms/SageToggle.vue'
-import { useInitializationStore } from '@/stores/initialization'
+import { useAuthenticationStore } from '@/stores/authentication'
 
-const initializationStore = useInitializationStore()
+const authenticationStore = useAuthenticationStore()
 
 const { t } = useI18n()
 
@@ -20,13 +20,13 @@ const adminPassword = ref('')
 const isPasswordVisible = ref(false)
 
 function showAlert() {
-  void initializationStore.initialize(adminPassword.value)
+  void authenticationStore.adminAuthenticate(adminPassword.value)
 }
 </script>
 
 <template>
   <SageSection>
-    <SageHeading>{{ t('admin.setup-title') }}</SageHeading>
+    <SageHeading>{{ t('common.brand') }}</SageHeading>
     <SageForm @submit="showAlert">
       <SageInput
         v-model="adminPassword"
@@ -41,7 +41,7 @@ function showAlert() {
         :label="t('forms.display-password')"
       />
       <SageButton
-        :isDisabled="initializationStore.isInitializeMutationLoading"
+        :isDisabled="authenticationStore.isAdminAuthenticateMutationLoading"
         class="flex-row"
         theme="primary"
         type="submit"
@@ -49,7 +49,7 @@ function showAlert() {
         {{ t('common.submit') }}
         <Transition name="fade">
           <SageIcon
-            v-if="initializationStore.isInitializeMutationLoading"
+            v-if="authenticationStore.isAdminAuthenticateMutationLoading"
             :icon="mdiLoading"
             class="animate-spin"
             size="20"

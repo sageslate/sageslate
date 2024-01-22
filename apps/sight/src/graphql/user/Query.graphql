@@ -1,0 +1,5 @@
+query IsAdmin {
+  admin {
+    isAuthenticated
+  }
+}

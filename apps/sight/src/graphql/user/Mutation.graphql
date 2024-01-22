@@ -1,0 +1,7 @@
+mutation AdminAuthenticate($password: String!) {
+  admin {
+    login(password: $password) {
+      token
+    }
+  }
+}

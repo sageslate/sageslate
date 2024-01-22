@@ -90,9 +90,22 @@ export type InitializeMutation = {
   admin: { __typename?: 'AdminMutation'; setup: { __typename?: 'AdminAuthenticationResult'; token: string } }
 }
 
-export type IsInitializedQueryVariables = Exact<{ [key: string]: never }>
+export type InitializedQueryVariables = Exact<{ [key: string]: never }>
 
-export type IsInitializedQuery = { __typename?: 'Query'; isInitialized: boolean }
+export type InitializedQuery = { __typename?: 'Query'; isInitialized: boolean }
+
+export type AdminAuthenticateMutationVariables = Exact<{
+  password: Scalars['String']['input']
+}>
+
+export type AdminAuthenticateMutation = {
+  __typename?: 'Mutation'
+  admin: { __typename?: 'AdminMutation'; login: { __typename?: 'AdminAuthenticationResult'; token: string } }
+}
+
+export type IsAdminQueryVariables = Exact<{ [key: string]: never }>
+
+export type IsAdminQuery = { __typename?: 'Query'; admin: { __typename?: 'AdminQuery'; isAuthenticated: boolean } }
 
 export const InitializeDocument = gql`
   mutation Initialize($input: AdminSetupInput!) {
@@ -126,55 +139,244 @@ export function useInitializeMutation(
     | VueApolloComposable.UseMutationOptions<InitializeMutation, InitializeMutationVariables>
     | ReactiveFunction<VueApolloComposable.UseMutationOptions<InitializeMutation, InitializeMutationVariables>> = {},
 ) {
-  return VueApolloComposable.useMutation<InitializeMutation, InitializeMutationVariables>(InitializeDocument, options)
+  const {
+    loading: isInitializeMutationLoading,
+    error: initializeMutationError,
+    onError: onInitializeMutationError,
+    mutate: initialize,
+    called: hasInitializeMutationCalled,
+    onDone: onInitializeMutationDone,
+  } = VueApolloComposable.useMutation<InitializeMutation, InitializeMutationVariables>(InitializeDocument, options)
+  return {
+    isInitializeMutationLoading,
+    initializeMutationError,
+    onInitializeMutationError,
+    initialize,
+    hasInitializeMutationCalled,
+    onInitializeMutationDone,
+  }
 }
 export type InitializeMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<
   InitializeMutation,
   InitializeMutationVariables
 >
-export const IsInitializedDocument = gql`
-  query IsInitialized {
+export const InitializedDocument = gql`
+  query Initialized {
     isInitialized
   }
 `
 
 /**
- * __useIsInitializedQuery__
+ * __useInitializedQuery__
  *
- * To run a query within a Vue component, call `useIsInitializedQuery` and pass it any options that fit your needs.
- * When your component renders, `useIsInitializedQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * To run a query within a Vue component, call `useInitializedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInitializedQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useIsInitializedQuery();
+ * const { result, loading, error } = useInitializedQuery();
  */
-export function useIsInitializedQuery(
+export function useInitializedQuery(
   options:
-    | VueApolloComposable.UseQueryOptions<IsInitializedQuery, IsInitializedQueryVariables>
-    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<IsInitializedQuery, IsInitializedQueryVariables>>
-    | ReactiveFunction<VueApolloComposable.UseQueryOptions<IsInitializedQuery, IsInitializedQueryVariables>> = {},
+    | VueApolloComposable.UseQueryOptions<InitializedQuery, InitializedQueryVariables>
+    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<InitializedQuery, InitializedQueryVariables>>
+    | ReactiveFunction<VueApolloComposable.UseQueryOptions<InitializedQuery, InitializedQueryVariables>> = {},
 ) {
-  return VueApolloComposable.useQuery<IsInitializedQuery, IsInitializedQueryVariables>(
-    IsInitializedDocument,
-    {},
+  const {
+    loading: isInitializedQueryLoading,
+    error: initializedQueryError,
+    onError: onInitializedQueryError,
+    result: initializedQueryResult,
+    variables: initializedQueryVariables,
+    refetch: refetchInitializedQuery,
+    fetchMore: fetchMoreInitializedQuery,
+    subscribeToMore: subscribeToMoreInitializedQuery,
+    onResult: onInitializedQueryResult,
+  } = VueApolloComposable.useQuery<InitializedQuery, InitializedQueryVariables>(InitializedDocument, {}, options)
+  return {
+    isInitializedQueryLoading,
+    initializedQueryError,
+    onInitializedQueryError,
+    initializedQueryResult,
+    initializedQueryVariables,
+    refetchInitializedQuery,
+    fetchMoreInitializedQuery,
+    subscribeToMoreInitializedQuery,
+    onInitializedQueryResult,
+  }
+}
+export function useInitializedLazyQuery(
+  options:
+    | VueApolloComposable.UseQueryOptions<InitializedQuery, InitializedQueryVariables>
+    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<InitializedQuery, InitializedQueryVariables>>
+    | ReactiveFunction<VueApolloComposable.UseQueryOptions<InitializedQuery, InitializedQueryVariables>> = {},
+) {
+  const {
+    loading: isInitializedLazyQueryLoading,
+    error: initializedLazyQueryError,
+    onError: onInitializedLazyQueryError,
+    result: initializedLazyQueryResult,
+    variables: initializedLazyQueryVariables,
+    refetch: refetchInitializedLazyQuery,
+    fetchMore: fetchMoreInitializedLazyQuery,
+    subscribeToMore: subscribeToMoreInitializedLazyQuery,
+    onResult: onInitializedLazyQueryResult,
+  } = VueApolloComposable.useLazyQuery<InitializedQuery, InitializedQueryVariables>(InitializedDocument, {}, options)
+  return {
+    isInitializedLazyQueryLoading,
+    initializedLazyQueryError,
+    onInitializedLazyQueryError,
+    initializedLazyQueryResult,
+    initializedLazyQueryVariables,
+    refetchInitializedLazyQuery,
+    fetchMoreInitializedLazyQuery,
+    subscribeToMoreInitializedLazyQuery,
+    onInitializedLazyQueryResult,
+  }
+}
+export type InitializedQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
+  InitializedQuery,
+  InitializedQueryVariables
+>
+export const AdminAuthenticateDocument = gql`
+  mutation AdminAuthenticate($password: String!) {
+    admin {
+      login(password: $password) {
+        token
+      }
+    }
+  }
+`
+
+/**
+ * __useAdminAuthenticateMutation__
+ *
+ * To run a mutation, you first call `useAdminAuthenticateMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useAdminAuthenticateMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useAdminAuthenticateMutation({
+ *   variables: {
+ *     password: // value for 'password'
+ *   },
+ * });
+ */
+export function useAdminAuthenticateMutation(
+  options:
+    | VueApolloComposable.UseMutationOptions<AdminAuthenticateMutation, AdminAuthenticateMutationVariables>
+    | ReactiveFunction<
+        VueApolloComposable.UseMutationOptions<AdminAuthenticateMutation, AdminAuthenticateMutationVariables>
+      > = {},
+) {
+  const {
+    loading: isAdminAuthenticateMutationLoading,
+    error: adminAuthenticateMutationError,
+    onError: onAdminAuthenticateMutationError,
+    mutate: adminAuthenticate,
+    called: hasAdminAuthenticateMutationCalled,
+    onDone: onAdminAuthenticateMutationDone,
+  } = VueApolloComposable.useMutation<AdminAuthenticateMutation, AdminAuthenticateMutationVariables>(
+    AdminAuthenticateDocument,
     options,
   )
+  return {
+    isAdminAuthenticateMutationLoading,
+    adminAuthenticateMutationError,
+    onAdminAuthenticateMutationError,
+    adminAuthenticate,
+    hasAdminAuthenticateMutationCalled,
+    onAdminAuthenticateMutationDone,
+  }
 }
-export function useIsInitializedLazyQuery(
+export type AdminAuthenticateMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<
+  AdminAuthenticateMutation,
+  AdminAuthenticateMutationVariables
+>
+export const IsAdminDocument = gql`
+  query IsAdmin {
+    admin {
+      isAuthenticated
+    }
+  }
+`
+
+/**
+ * __useIsAdminQuery__
+ *
+ * To run a query within a Vue component, call `useIsAdminQuery` and pass it any options that fit your needs.
+ * When your component renders, `useIsAdminQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useIsAdminQuery();
+ */
+export function useIsAdminQuery(
   options:
-    | VueApolloComposable.UseQueryOptions<IsInitializedQuery, IsInitializedQueryVariables>
-    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<IsInitializedQuery, IsInitializedQueryVariables>>
-    | ReactiveFunction<VueApolloComposable.UseQueryOptions<IsInitializedQuery, IsInitializedQueryVariables>> = {},
+    | VueApolloComposable.UseQueryOptions<IsAdminQuery, IsAdminQueryVariables>
+    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<IsAdminQuery, IsAdminQueryVariables>>
+    | ReactiveFunction<VueApolloComposable.UseQueryOptions<IsAdminQuery, IsAdminQueryVariables>> = {},
 ) {
-  return VueApolloComposable.useLazyQuery<IsInitializedQuery, IsInitializedQueryVariables>(
-    IsInitializedDocument,
-    {},
-    options,
-  )
+  const {
+    loading: isIsAdminQueryLoading,
+    error: isAdminQueryError,
+    onError: onIsAdminQueryError,
+    result: isAdminQueryResult,
+    variables: isAdminQueryVariables,
+    refetch: refetchIsAdminQuery,
+    fetchMore: fetchMoreIsAdminQuery,
+    subscribeToMore: subscribeToMoreIsAdminQuery,
+    onResult: onIsAdminQueryResult,
+  } = VueApolloComposable.useQuery<IsAdminQuery, IsAdminQueryVariables>(IsAdminDocument, {}, options)
+  return {
+    isIsAdminQueryLoading,
+    isAdminQueryError,
+    onIsAdminQueryError,
+    isAdminQueryResult,
+    isAdminQueryVariables,
+    refetchIsAdminQuery,
+    fetchMoreIsAdminQuery,
+    subscribeToMoreIsAdminQuery,
+    onIsAdminQueryResult,
+  }
 }
-export type IsInitializedQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
-  IsInitializedQuery,
-  IsInitializedQueryVariables
+export function useIsAdminLazyQuery(
+  options:
+    | VueApolloComposable.UseQueryOptions<IsAdminQuery, IsAdminQueryVariables>
+    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<IsAdminQuery, IsAdminQueryVariables>>
+    | ReactiveFunction<VueApolloComposable.UseQueryOptions<IsAdminQuery, IsAdminQueryVariables>> = {},
+) {
+  const {
+    loading: isIsAdminLazyQueryLoading,
+    error: isAdminLazyQueryError,
+    onError: onIsAdminLazyQueryError,
+    result: isAdminLazyQueryResult,
+    variables: isAdminLazyQueryVariables,
+    refetch: refetchIsAdminLazyQuery,
+    fetchMore: fetchMoreIsAdminLazyQuery,
+    subscribeToMore: subscribeToMoreIsAdminLazyQuery,
+    onResult: onIsAdminLazyQueryResult,
+  } = VueApolloComposable.useLazyQuery<IsAdminQuery, IsAdminQueryVariables>(IsAdminDocument, {}, options)
+  return {
+    isIsAdminLazyQueryLoading,
+    isAdminLazyQueryError,
+    onIsAdminLazyQueryError,
+    isAdminLazyQueryResult,
+    isAdminLazyQueryVariables,
+    refetchIsAdminLazyQuery,
+    fetchMoreIsAdminLazyQuery,
+    subscribeToMoreIsAdminLazyQuery,
+    onIsAdminLazyQueryResult,
+  }
+}
+export type IsAdminQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<
+  IsAdminQuery,
+  IsAdminQueryVariables
 >

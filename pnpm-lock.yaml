@@ -338,6 +338,9 @@ importers:
       '@babel/types':
         specifier: ^7.23.6
         version: 7.23.6
+      '@sageslate/stone':
+        specifier: workspace:*
+        version: link:../stone
       '@types/babel__generator':
         specifier: ^7.6.8
         version: 7.6.8

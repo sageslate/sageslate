@@ -2,10 +2,12 @@
 import { RouterView } from 'vue-router'
 
 import GlobalAlerts from '@/organisms/specific/GlobalAlerts.vue'
+import { useAuthenticationStore } from '@/stores/authentication'
 import { useInitializationStore } from '@/stores/initialization'
 
-// Need to call store during setup for the first time so composables can be used
+// Need to call store during setup for the first time so composition works in there
 useInitializationStore()
+useAuthenticationStore()
 </script>
 
 <template>

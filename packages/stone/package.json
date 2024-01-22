@@ -1,7 +1,7 @@
 {
   "name": "@sageslate/stone",
   "version": "0.1.0",
-  "main": "./dist/main.cjs",
+  "main": "./dist/main.mjs",
   "module": "./dist/main.mjs",
   "types": "./dist/main.d.cts",
   "type": "module",
