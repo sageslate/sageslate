@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
 import colors from 'tailwindcss/colors'
+import plugin from 'tailwindcss/plugin'
+
+import type { Config } from 'tailwindcss'
 
 // eslint-disable-next-line import/no-default-export
 export default {
@@ -9,9 +11,13 @@ export default {
       backgroundImage: {
         main: "url('/images/bg.webp')",
       },
+      textShadow: {
+        DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+      },
     },
     fontFamily: {
       sans: ['Inter', 'sans-serif'],
+      display: ['"Playfair Display"', 'serif'],
     },
     colors: {
       white: colors.white,
@@ -28,5 +34,16 @@ export default {
       secondary: colors.lime,
     },
   },
-  plugins: [],
-}
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value: string) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') },
+      )
+    }),
+  ],
+} satisfies Config

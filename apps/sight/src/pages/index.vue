@@ -1,27 +1,19 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { definePage } from 'vue-router/auto'
 
-import { useAuthenticationStore } from '@/stores/authentication'
+import InitialSetup from '@/organisms/specific/admin/InitialSetup.vue'
+import CenteredFrostedContainer from '@/templates/CenteredFrostedContainer.vue'
 
 definePage({
   meta: {
-    isInitializedOnly: true,
+    isPreInitializedOnly: true,
     isInitialStatePage: true,
-    isAdminOnly: true,
   },
 })
-
-const authenticationStore = useAuthenticationStore()
-
-const router = useRouter()
-
-async function logOut() {
-  authenticationStore.setToken('')
-  await router.push('/authentication')
-}
 </script>
 
 <template>
-  <button @click="logOut">Exit</button>
+  <CenteredFrostedContainer>
+    <InitialSetup />
+  </CenteredFrostedContainer>
 </template>

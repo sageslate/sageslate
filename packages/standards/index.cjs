@@ -142,15 +142,7 @@ module.exports = {
       { prefer: 'type-imports', fixStyle: 'separate-type-imports' },
     ],
     'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
-    'unicorn/filename-case': [
-      'error',
-      {
-        cases: {
-          camelCase: true,
-          pascalCase: true,
-        },
-      },
-    ],
+    'unicorn/filename-case': 'off',
     'unicorn/prevent-abbreviations': [
       'error',
       {

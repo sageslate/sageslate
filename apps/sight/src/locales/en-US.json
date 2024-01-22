@@ -4,12 +4,18 @@
     "submit": "Submit"
   },
   "admin": {
-    "setup-title": "@:common.brand Setup"
+    "setup-title": "@:common.brand Setup",
+    "new-realm": "New realm"
   },
   "forms": {
     "admin-password": "Admin Password",
     "admin-password-placeholder": "SuperS3cur3Passw0rd",
-    "display-password": "Display Password"
+    "display-password": "Display Password",
+    "folder-name-placeholder": "lands-of-magic",
+    "folder-name": "Folder Name",
+    "realm-name": "Realm Name",
+    "realm-name-placeholder": "Lands of Magic",
+    "create-realm-submit": "Create Realm"
   },
   "errors": {
     "app-already-initialized": "By Merlin's beard! This realm has already been conjured!",

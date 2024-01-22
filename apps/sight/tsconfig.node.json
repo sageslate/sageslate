@@ -6,7 +6,7 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "tailwind.config.js",
+    "tailwind.config.ts",
     "postcss.config.js"
   ],
   "compilerOptions": {

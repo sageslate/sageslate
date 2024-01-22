@@ -1,0 +1,7 @@
+mutation CreateRealm($input: RealmCreateInput!) {
+  admin {
+    createRealm(input: $input) {
+      id
+    }
+  }
+}

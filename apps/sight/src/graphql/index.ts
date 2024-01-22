@@ -81,6 +81,15 @@ export type RealmCreateInput = {
   name: Scalars['String']['input']
 }
 
+export type CreateRealmMutationVariables = Exact<{
+  input: RealmCreateInput
+}>
+
+export type CreateRealmMutation = {
+  __typename?: 'Mutation'
+  admin: { __typename?: 'AdminMutation'; createRealm: { __typename?: 'Realm'; id: string } }
+}
+
 export type InitializeMutationVariables = Exact<{
   input: AdminSetupInput
 }>
@@ -107,6 +116,59 @@ export type IsAdminQueryVariables = Exact<{ [key: string]: never }>
 
 export type IsAdminQuery = { __typename?: 'Query'; admin: { __typename?: 'AdminQuery'; isAuthenticated: boolean } }
 
+export const CreateRealmDocument = gql`
+  mutation CreateRealm($input: RealmCreateInput!) {
+    admin {
+      createRealm(input: $input) {
+        id
+      }
+    }
+  }
+`
+
+/**
+ * __useCreateRealmMutation__
+ *
+ * To run a mutation, you first call `useCreateRealmMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useCreateRealmMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useCreateRealmMutation({
+ *   variables: {
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateRealmMutation(
+  options:
+    | VueApolloComposable.UseMutationOptions<CreateRealmMutation, CreateRealmMutationVariables>
+    | ReactiveFunction<VueApolloComposable.UseMutationOptions<CreateRealmMutation, CreateRealmMutationVariables>> = {},
+) {
+  const {
+    loading: isCreateRealmMutationLoading,
+    error: createRealmMutationError,
+    onError: onCreateRealmMutationError,
+    mutate: createRealm,
+    called: hasCreateRealmMutationCalled,
+    onDone: onCreateRealmMutationDone,
+  } = VueApolloComposable.useMutation<CreateRealmMutation, CreateRealmMutationVariables>(CreateRealmDocument, options)
+  return {
+    isCreateRealmMutationLoading,
+    createRealmMutationError,
+    onCreateRealmMutationError,
+    createRealm,
+    hasCreateRealmMutationCalled,
+    onCreateRealmMutationDone,
+  }
+}
+export type CreateRealmMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<
+  CreateRealmMutation,
+  CreateRealmMutationVariables
+>
 export const InitializeDocument = gql`
   mutation Initialize($input: AdminSetupInput!) {
     admin {

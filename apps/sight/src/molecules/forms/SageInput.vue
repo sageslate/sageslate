@@ -27,9 +27,15 @@ const modelValue = defineModel<string>({ required: true })
 
 <template>
   <FormElementContainer class="flex-col md:gap-2">
-    <FormElementLabel v-if="slots.default || props.label">
+    <FormElementLabel v-if="slots.default || props.label" class="shrink-0">
       <slot>{{ props.label }}</slot>
     </FormElementLabel>
-    <TextInputAtom v-model="modelValue" :name="props.name" :placeholder="props.placeholder" :type="props.type" />
+    <TextInputAtom
+      v-model="modelValue"
+      :name="props.name"
+      :placeholder="props.placeholder"
+      :type="props.type"
+      class="grow"
+    />
   </FormElementContainer>
 </template>

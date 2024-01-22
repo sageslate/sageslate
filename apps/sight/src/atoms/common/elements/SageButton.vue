@@ -2,12 +2,12 @@
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router/auto'
 
-import type { RouteRecordRaw } from 'vue-router/auto'
+import type { RouteLocationRaw } from 'vue-router/auto'
 
 const props = withDefaults(
   defineProps<{
     theme: 'primary' | 'secondary' | 'default' | 'text'
-    to?: RouteRecordRaw
+    to?: RouteLocationRaw
     href?: string
     type?: 'button' | 'submit' | 'reset'
     isDisabled?: boolean
@@ -47,11 +47,11 @@ const element = computed(() => {
   <Component
     :is="element"
     :class="{
-      'from-primary-500 to-primary-700 focus:ring-primary-800 disabled:from-primary-900 disabled:to-primary-950':
+      'from-primary-600 to-primary-700 focus:ring-primary-800 disabled:from-primary-900 disabled:to-primary-950':
         props.theme === 'primary',
-      'from-secondary-500 to-secondary-700 focus:ring-secondary-800 disabled:from-secondary-900 disabled:to-secondary-950':
+      'from-secondary-600 to-secondary-700 focus:ring-secondary-800 disabled:from-secondary-900 disabled:to-secondary-950':
         props.theme === 'secondary',
-      'from-gray-500 to-gray-700 focus:ring-gray-800 disabled:from-gray-900 disabled:to-gray-950':
+      'from-gray-600 to-gray-700 focus:ring-gray-800 disabled:from-gray-900 disabled:to-gray-950':
         props.theme === 'default',
       'bg-gradient-to-r hover:bg-gradient-to-br':
         props.theme === 'primary' || props.theme === 'secondary' || props.theme === 'default',
@@ -63,7 +63,7 @@ const element = computed(() => {
     :href="props.href"
     :to="props.to"
     :type="props.type"
-    class="flex-row items-center justify-center gap-2 rounded-lg text-center text-sm font-medium focus:outline-none focus:ring-4"
+    class="flex flex-row items-center justify-center gap-2 rounded-lg text-center text-sm font-medium focus:outline-none focus:ring-4 active:scale-95"
     @click="(event: MouseEvent) => emit('click', event)"
   >
     <slot />
