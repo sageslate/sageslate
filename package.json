@@ -23,12 +23,13 @@
     "lint:sight": "cd apps/sight && pnpm lint",
     "lint:stone": "cd packages/stone && pnpm lint",
     "lint:tools": "cd packages/tools && pnpm lint",
-    "lint": "run-p -l lint:*",
+    "lint": "run-s -l lint:*",
     "type-check:source": "cd apps/source && pnpm type-check",
     "type-check:sight": "cd apps/sight && pnpm type-check",
     "type-check:stone": "cd packages/stone && pnpm type-check",
     "type-check:tools": "cd packages/tools && pnpm type-check",
-    "type-check": "run-p -l type-check:*"
+    "type-check": "run-s -l type-check:*",
+    "test": "run-s lint type-check"
   },
   "keywords": [
     "vtt"
