@@ -4,8 +4,10 @@
   "description": "SageSource - Server",
   "main": "src/main.ts",
   "scripts": {
-    "graphql:fix": "sage-fix-esm-imports src/schema",
-    "graphql:lint": "pnpm run lint:path src/schema",
+    "graphql:core:fix": "sage-fix-esm-imports src/schema",
+    "graphql:core:lint": "pnpm run lint:path src/schema",
+    "graphql:realm:fix": "sage-fix-esm-imports src/realm/schema",
+    "graphql:realm:lint": "pnpm run lint:path src/realm/schema",
     "lint:path": "eslint --ext .ts --fix",
     "lint": "pnpm run lint:path -- .",
     "dev": "tsx watch --clear-screen=false src/main",

@@ -1,4 +1,4 @@
-import { Errors, doesExist, doesNotExist } from '@sageslate/stone'
+import { Errors, doesNotExist } from '@sageslate/stone'
 import { compare } from 'bcrypt'
 import { ObjectId } from 'mongodb'
 import { z } from 'zod'
@@ -22,7 +22,6 @@ const argumentSchemas = {
     input: z.object({
       id: rules.objectId,
       name: rules.realmName,
-      folderName: rules.realmFolderName,
     }),
   }),
 }
@@ -55,13 +54,10 @@ export const AdminMutation: AdminMutationResolvers = {
       input: { id, ...rest },
     } = argumentSchemas.createRealm.parse(argument)
 
-    if (doesExist(await models.realm.findOne({ folderName: rest.folderName }))) {
-      throw new Errors.ValidationFolderNameAlreadyExists()
-    }
-
     await models.realm.insertOne({
       _id: new ObjectId(id),
       ...rest,
+      isRunning: false,
       createdAt: new Date(),
       updatedAt: new Date(),
     })

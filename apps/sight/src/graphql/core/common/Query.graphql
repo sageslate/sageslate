@@ -1,0 +1,10 @@
+query Initialized {
+  isInitialized
+}
+
+query Realms {
+  realms {
+    id
+    name
+  }
+}

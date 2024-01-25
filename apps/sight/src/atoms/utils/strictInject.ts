@@ -1,6 +1,8 @@
 import { inject } from 'vue'
 
-import type { InjectionKey } from 'vue'
+import type { InjectionKey, Ref } from 'vue'
+
+export const RealmIdInjectionKey: InjectionKey<Ref<string>> = Symbol('realmId')
 
 export function strictInject<T>(key: InjectionKey<T> | string): T {
   const resolved = inject(key)

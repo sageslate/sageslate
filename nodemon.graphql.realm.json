@@ -1,0 +1,6 @@
+{
+  "exec": "pnpm generate:graphql:realm",
+  "watch": ["apps/source/src/realm/graphql", "apps/sight/src/graphql/realm"],
+  "ext": "graphql,ts",
+  "ignore": ["apps/sight/src/graphql/realm/index.ts"]
+}

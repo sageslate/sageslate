@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import { definePage } from 'vue-router/auto'
 
-import AuthenticationForm from '@/organisms/specific/admin/AuthenticationForm.vue'
+import InitialSetup from '@/organisms/specific/admin/InitialSetup.vue'
 import CenteredFrostedContainer from '@/templates/CenteredFrostedContainer.vue'
 
 definePage({
   meta: {
-    isInitializedOnly: true,
+    isPreInitializedOnly: true,
     isInitialStatePage: true,
-    isGuestOnly: true,
   },
 })
 </script>
 
 <template>
   <CenteredFrostedContainer>
-    <AuthenticationForm />
+    <InitialSetup />
   </CenteredFrostedContainer>
 </template>

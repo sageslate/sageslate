@@ -8,7 +8,7 @@ export type ModelBase = {
 
 export type Realm = ModelBase & {
   name: string
-  folderName: string
+  isRunning: boolean
 }
 
 export type Models = {

@@ -50,7 +50,6 @@ export type AdminMutationsetupArgs = {
 export type AdminQuery = {
   __typename?: 'AdminQuery';
   isAuthenticated: Scalars['Boolean']['output'];
-  realms: Array<Realm>;
 };
 
 export type AdminSetupInput = {
@@ -66,19 +65,19 @@ export type Query = {
   __typename?: 'Query';
   admin: AdminQuery;
   isInitialized: Scalars['Boolean']['output'];
+  realms: Array<Realm>;
 };
 
 export type Realm = {
   __typename?: 'Realm';
   createdAt: Scalars['DateTime']['output'];
-  folderName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  isRunning: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
 export type RealmCreateInput = {
-  folderName: Scalars['String']['input'];
   id: Scalars['String']['input'];
   name: Scalars['String']['input'];
 };
@@ -198,7 +197,6 @@ export type AdminMutationResolvers<ContextType = ApolloContext, ParentType exten
 
 export type AdminQueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['AdminQuery'] = ResolversParentTypes['AdminQuery']> = {
   isAuthenticated?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  realms?: Resolver<Array<ResolversTypes['Realm']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -213,12 +211,13 @@ export type MutationResolvers<ContextType = ApolloContext, ParentType extends Re
 export type QueryResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   admin?: Resolver<ResolversTypes['AdminQuery'], ParentType, ContextType>;
   isInitialized?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  realms?: Resolver<Array<ResolversTypes['Realm']>, ParentType, ContextType>;
 };
 
 export type RealmResolvers<ContextType = ApolloContext, ParentType extends ResolversParentTypes['Realm'] = ResolversParentTypes['Realm']> = {
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
-  folderName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  isRunning?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

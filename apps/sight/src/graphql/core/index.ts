@@ -48,7 +48,6 @@ export type AdminMutationSetupArguments = {
 export type AdminQuery = {
   __typename?: 'AdminQuery'
   isAuthenticated: Scalars['Boolean']['output']
-  realms: Array<Realm>
 }
 
 export type AdminSetupInput = {
@@ -64,19 +63,19 @@ export type Query = {
   __typename?: 'Query'
   admin: AdminQuery
   isInitialized: Scalars['Boolean']['output']
+  realms: Array<Realm>
 }
 
 export type Realm = {
   __typename?: 'Realm'
   createdAt: Scalars['DateTime']['output']
-  folderName: Scalars['String']['output']
   id: Scalars['ID']['output']
+  isRunning: Scalars['Boolean']['output']
   name: Scalars['String']['output']
   updatedAt: Scalars['DateTime']['output']
 }
 
 export type RealmCreateInput = {
-  folderName: Scalars['String']['input']
   id: Scalars['String']['input']
   name: Scalars['String']['input']
 }
@@ -102,6 +101,10 @@ export type InitializeMutation = {
 export type InitializedQueryVariables = Exact<{ [key: string]: never }>
 
 export type InitializedQuery = { __typename?: 'Query'; isInitialized: boolean }
+
+export type RealmsQueryVariables = Exact<{ [key: string]: never }>
+
+export type RealmsQuery = { __typename?: 'Query'; realms: Array<{ __typename?: 'Realm'; id: string; name: string }> }
 
 export type AdminAuthenticateMutationVariables = Exact<{
   password: Scalars['String']['input']
@@ -137,7 +140,7 @@ export const CreateRealmDocument = gql`
  * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
  *
  * @example
- * const { mutate, loading, error, onDone } = useCreateRealmMutation({
+ * const { createRealm, isCreateRealmMutationLoading, createRealmMutationError, onCreateRealmMutationDone } = useCreateRealmMutation({
  *   variables: {
  *     input: // value for 'input'
  *   },
@@ -190,7 +193,7 @@ export const InitializeDocument = gql`
  * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
  *
  * @example
- * const { mutate, loading, error, onDone } = useInitializeMutation({
+ * const { initialize, isInitializeMutationLoading, initializeMutationError, onInitializeMutationDone } = useInitializeMutation({
  *   variables: {
  *     input: // value for 'input'
  *   },
@@ -238,7 +241,7 @@ export const InitializedDocument = gql`
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useInitializedQuery();
+ * const { initializedQueryResult, isInitializedQueryLoading, initializedQueryError } = useInitializedQuery();
  */
 export function useInitializedQuery(
   options:
@@ -302,6 +305,86 @@ export type InitializedQueryCompositionFunctionResult = VueApolloComposable.UseQ
   InitializedQuery,
   InitializedQueryVariables
 >
+export const RealmsDocument = gql`
+  query Realms {
+    realms {
+      id
+      name
+    }
+  }
+`
+
+/**
+ * __useRealmsQuery__
+ *
+ * To run a query within a Vue component, call `useRealmsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRealmsQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { realmsQueryResult, isRealmsQueryLoading, realmsQueryError } = useRealmsQuery();
+ */
+export function useRealmsQuery(
+  options:
+    | VueApolloComposable.UseQueryOptions<RealmsQuery, RealmsQueryVariables>
+    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<RealmsQuery, RealmsQueryVariables>>
+    | ReactiveFunction<VueApolloComposable.UseQueryOptions<RealmsQuery, RealmsQueryVariables>> = {},
+) {
+  const {
+    loading: isRealmsQueryLoading,
+    error: realmsQueryError,
+    onError: onRealmsQueryError,
+    result: realmsQueryResult,
+    variables: realmsQueryVariables,
+    refetch: refetchRealmsQuery,
+    fetchMore: fetchMoreRealmsQuery,
+    subscribeToMore: subscribeToMoreRealmsQuery,
+    onResult: onRealmsQueryResult,
+  } = VueApolloComposable.useQuery<RealmsQuery, RealmsQueryVariables>(RealmsDocument, {}, options)
+  return {
+    isRealmsQueryLoading,
+    realmsQueryError,
+    onRealmsQueryError,
+    realmsQueryResult,
+    realmsQueryVariables,
+    refetchRealmsQuery,
+    fetchMoreRealmsQuery,
+    subscribeToMoreRealmsQuery,
+    onRealmsQueryResult,
+  }
+}
+export function useRealmsLazyQuery(
+  options:
+    | VueApolloComposable.UseQueryOptions<RealmsQuery, RealmsQueryVariables>
+    | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<RealmsQuery, RealmsQueryVariables>>
+    | ReactiveFunction<VueApolloComposable.UseQueryOptions<RealmsQuery, RealmsQueryVariables>> = {},
+) {
+  const {
+    loading: isRealmsLazyQueryLoading,
+    error: realmsLazyQueryError,
+    onError: onRealmsLazyQueryError,
+    result: realmsLazyQueryResult,
+    variables: realmsLazyQueryVariables,
+    refetch: refetchRealmsLazyQuery,
+    fetchMore: fetchMoreRealmsLazyQuery,
+    subscribeToMore: subscribeToMoreRealmsLazyQuery,
+    onResult: onRealmsLazyQueryResult,
+  } = VueApolloComposable.useLazyQuery<RealmsQuery, RealmsQueryVariables>(RealmsDocument, {}, options)
+  return {
+    isRealmsLazyQueryLoading,
+    realmsLazyQueryError,
+    onRealmsLazyQueryError,
+    realmsLazyQueryResult,
+    realmsLazyQueryVariables,
+    refetchRealmsLazyQuery,
+    fetchMoreRealmsLazyQuery,
+    subscribeToMoreRealmsLazyQuery,
+    onRealmsLazyQueryResult,
+  }
+}
+export type RealmsQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<RealmsQuery, RealmsQueryVariables>
 export const AdminAuthenticateDocument = gql`
   mutation AdminAuthenticate($password: String!) {
     admin {
@@ -323,7 +406,7 @@ export const AdminAuthenticateDocument = gql`
  * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
  *
  * @example
- * const { mutate, loading, error, onDone } = useAdminAuthenticateMutation({
+ * const { adminAuthenticate, isAdminAuthenticateMutationLoading, adminAuthenticateMutationError, onAdminAuthenticateMutationDone } = useAdminAuthenticateMutation({
  *   variables: {
  *     password: // value for 'password'
  *   },
@@ -378,7 +461,7 @@ export const IsAdminDocument = gql`
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useIsAdminQuery();
+ * const { isAdminQueryResult, isIsAdminQueryLoading, isAdminQueryError } = useIsAdminQuery();
  */
 export function useIsAdminQuery(
   options:

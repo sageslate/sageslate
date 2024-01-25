@@ -5,6 +5,7 @@ import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDe
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 
+import { bootstrapRealmApollo } from '../realm/bootstrap/apollo.js'
 import { resolvers } from '../schema/graphql/resolvers.generated.js'
 import { typeDefs } from '../schema/typeDefs.generated.js'
 import { configurationToolkit } from '../utils/configuration.js'
@@ -58,7 +59,19 @@ export async function bootstrapApollo({ database, models }: BootstrapApolloOptio
   })
 
   await server.start()
-  server.applyMiddleware({ app, path: '/graphql' })
+  server.applyMiddleware({ app, path: '/graphql/core' })
+
+  const realms = await models.realm.find().toArray()
+  for (const realm of realms) {
+    await bootstrapRealmApollo({
+      app,
+      configuration,
+      coreModels: models,
+      database,
+      httpServer,
+      realmId: realm._id.toHexString(),
+    })
+  }
 
   await new Promise<void>(resolve => httpServer.listen({ port: process.env.PORT ?? 4000 }, resolve))
   const { port } = httpServer.address() as AddressInfo

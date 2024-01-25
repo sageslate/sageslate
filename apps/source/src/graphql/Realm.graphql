@@ -2,14 +2,13 @@ input RealmCreateInput {
   id: String!
 
   name: String!
-  folderName: String!
 }
 
 type Realm {
   id: ID!
 
   name: String!
-  folderName: String!
+  isRunning: Boolean!
 
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -19,6 +18,6 @@ type AdminMutation {
   createRealm(input: RealmCreateInput!): Realm!
 }
 
-type AdminQuery {
+type Query {
   realms: [Realm!]!
 }

@@ -5,7 +5,7 @@ import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 
-import { useAdminAuthenticateMutation, useIsAdminQuery } from '@/graphql'
+import { useAdminAuthenticateMutation, useIsAdminQuery } from '@/graphql/core'
 
 import { AlertType, useAlertsStore } from './alerts'
 

@@ -5,14 +5,13 @@
   },
   "admin": {
     "setup-title": "@:common.brand Setup",
-    "new-realm": "New realm"
+    "new-realm": "New realm",
+    "login": "Admin login"
   },
   "forms": {
     "admin-password": "Admin Password",
     "admin-password-placeholder": "SuperS3cur3Passw0rd",
     "display-password": "Display Password",
-    "folder-name-placeholder": "lands-of-magic",
-    "folder-name": "Folder Name",
     "realm-name": "Realm Name",
     "realm-name-placeholder": "Lands of Magic",
     "create-realm-submit": "Create Realm"
@@ -24,10 +23,6 @@
     "network-error": "The ethereal network is tangled! Unable to send carrier pigeons!",
     "unauthorized": "Stop right there! You shall not pass without the proper incantation!",
     "unknown-error": "We've stumbled into uncharted territory! An unknown enigma has occurred!",
-    "validation-folder-name-already-exists": "By the ancient archives! This folder name is already taken in our scrolls. Try a name not yet written in legend!",
-    "validation-folder-name-invalid": "This folder name is as mythical as a unicorn! Please choose another.",
-    "validation-folder-name-too-long": "Even the longest scroll in the kingdom isn't this long! Shorten the folder name, brave scribe.",
-    "validation-folder-name-too-short": "This folder name is shorter than a gnome's beard! Please elongate it.",
     "validation-name-too-long": "Your name rivals the length of ancient dragons! Please shorten it.",
     "validation-name-too-short": "Is that a name or an incantation? It's too short for us mere mortals!",
     "validation-object-id-invalid": "This object ID is as elusive as a leprechaun! Check and try again.",

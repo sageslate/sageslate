@@ -1,5 +1,5 @@
 import { doesNotExist } from '@sageslate/stone'
-import { DefaultApolloClient } from '@vue/apollo-composable'
+import { ApolloClients } from '@vue/apollo-composable'
 import { until } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { computed } from 'vue'
@@ -7,12 +7,12 @@ import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router/auto'
 
 import { strictInject } from '@/atoms/utils/strictInject'
-import { InitializedDocument, useInitializeMutation, useInitializedQuery } from '@/graphql'
+import { InitializedDocument, useInitializeMutation, useInitializedQuery } from '@/graphql/core'
 
 import { AlertType, useAlertsStore } from './alerts'
 import { useAuthenticationStore } from './authentication'
 
-import type { InitializedQuery } from '@/graphql'
+import type { InitializedQuery } from '@/graphql/core'
 import type { NormalizedCacheObject, ApolloClient } from '@apollo/client'
 
 export enum InitializedState {
@@ -23,7 +23,7 @@ export enum InitializedState {
 }
 
 export const useInitializationStore = defineStore('initialization', () => {
-  const apolloClient = strictInject<ApolloClient<NormalizedCacheObject>>(DefaultApolloClient)
+  const apolloClients = strictInject<{ default: ApolloClient<NormalizedCacheObject> }>(ApolloClients)
 
   const alertsStore = useAlertsStore()
   const authenticationStore = useAuthenticationStore()
@@ -41,7 +41,7 @@ export const useInitializationStore = defineStore('initialization', () => {
 
     authenticationStore.setToken(response.data.admin.setup.token)
 
-    apolloClient.writeQuery<InitializedQuery>({
+    apolloClients.default.writeQuery<InitializedQuery>({
       query: InitializedDocument,
       data: {
         isInitialized: true,

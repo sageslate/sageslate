@@ -7,7 +7,10 @@ import traverseModule from '@babel/traverse'
 import * as t from '@babel/types'
 import { camelCase, pascalCase } from '@sageslate/stone'
 
+const parametersCommentRE = /{([^}]*)}/
+
 const filePath = resolve(process.cwd(), process.argv[2])
+const isRealmFix = process.argv.includes('--realm')
 
 const generate = generateModule.default
 const traverse = traverseModule.default
@@ -25,7 +28,13 @@ traverse(abstractSyntaxTree, {
       path.node.name = path.node.name.replace(/Args$/, 'Arguments')
     }
   },
-  FunctionDeclaration(path) {
+  ExportNamedDeclaration(parentPath) {
+    const path = parentPath.get('declaration')
+
+    if (!path.isFunctionDeclaration()) {
+      return
+    }
+
     const id = path.node.id
 
     if (!t.isIdentifier(id) || !id.name.startsWith('use')) {
@@ -54,6 +63,17 @@ traverse(abstractSyntaxTree, {
       return
     }
 
+    if (isRealmFix) {
+      bodyPath.unshiftContainer('body', [
+        t.variableDeclaration('const', [
+          t.variableDeclarator(
+            t.identifier('realmId'),
+            t.callExpression(t.identifier('strictInject'), [t.identifier('RealmIdInjectionKey')]),
+          ),
+        ]),
+      ])
+    }
+
     const renames: Record<string, string> = {
       loading: `is${pascalCasedName}${mutationOrQuery}Loading`,
       error: `${camelCasedName}${mutationOrQuery}Error`,
@@ -74,6 +94,38 @@ traverse(abstractSyntaxTree, {
           }),
     }
 
+    const comments = parentPath.node.leadingComments
+    if (comments) {
+      for (const comment of comments) {
+        if (comment.type === 'CommentBlock') {
+          comment.value = comment.value
+            .split('\n')
+            .map(line => {
+              if (!line.startsWith(' * const {')) {
+                return line
+              }
+
+              const match = line.match(parametersCommentRE)
+
+              if (match) {
+                const parameters = match[1]
+                  .split(',')
+                  .map(parameter => parameter.trim())
+                  .filter(Boolean)
+
+                return line.replace(
+                  parametersCommentRE,
+                  `{ ${parameters.map(parameter => renames[parameter] ?? parameter).join(', ')} }`,
+                )
+              }
+
+              return line
+            })
+            .join('\n')
+        }
+      }
+    }
+
     bodyPath.pushContainer(
       'body',
       t.returnStatement(
@@ -84,6 +136,32 @@ traverse(abstractSyntaxTree, {
         ),
       ),
     )
+
+    if (isRealmFix && t.isCallExpression(statement.argument)) {
+      const lastArgument = statement.argument.arguments.at(-1)
+      if (t.isIdentifier(lastArgument) && lastArgument.name === 'options') {
+        // () => ({
+        //   ...VueCompositionApi.toValue(options),
+        //   clientId: realmId
+        // })
+        const newOptions = t.arrowFunctionExpression(
+          [],
+          t.objectExpression([
+            t.spreadElement(
+              t.callExpression(t.memberExpression(t.identifier('VueCompositionApi'), t.identifier('toValue')), [
+                lastArgument,
+              ]),
+            ),
+            t.objectProperty(
+              t.identifier('clientId'),
+              t.memberExpression(t.identifier('realmId'), t.identifier('value')),
+            ),
+          ]),
+        )
+
+        statement.argument.arguments = [...statement.argument.arguments.slice(0, -1), newOptions]
+      }
+    }
 
     statementPath.replaceWith(
       t.variableDeclaration('const', [

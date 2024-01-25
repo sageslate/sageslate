@@ -1,30 +1,25 @@
 <script setup lang="ts">
 import { mdiLoading } from '@mdi/js'
 import { ObjectId } from 'bson'
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import SageButton from '@/atoms/common/elements/SageButton.vue'
 import SageIcon from '@/atoms/common/elements/SageIcon.vue'
 import SageForm from '@/atoms/forms/containers/SageForm.vue'
-import { useCreateRealmMutation } from '@/graphql'
+import { useCreateRealmMutation } from '@/graphql/core'
 import SageInput from '@/molecules/forms/SageInput.vue'
-
-import type { RealmCreateInput } from '@/graphql'
 
 const { t } = useI18n()
 
-const formData = reactive<Omit<RealmCreateInput, 'id'>>({
-  folderName: '',
-  name: '',
-})
+const name = ref('')
 
 const { createRealm, isCreateRealmMutationLoading } = useCreateRealmMutation()
 
 async function handleFormSubmit() {
   await createRealm({
     input: {
-      ...formData,
+      name: name.value,
       id: new ObjectId().toHexString(),
     },
   })
@@ -33,16 +28,7 @@ async function handleFormSubmit() {
 
 <template>
   <SageForm @submit="handleFormSubmit">
-    <SageInput
-      v-model="formData.name"
-      :label="t('forms.realm-name')"
-      :placeholder="t('forms.realm-name-placeholder')"
-    />
-    <SageInput
-      v-model="formData.folderName"
-      :label="t('forms.folder-name')"
-      :placeholder="t('forms.folder-name-placeholder')"
-    />
+    <SageInput v-model="name" :label="t('forms.realm-name')" :placeholder="t('forms.realm-name-placeholder')" />
 
     <SageButton :isDisabled="isCreateRealmMutationLoading" class="flex-row" theme="primary" type="submit">
       {{ t('forms.create-realm-submit') }}

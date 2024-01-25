@@ -43,8 +43,9 @@ declare module 'vue-router/auto/routes' {
     '/admin': RouteRecordInfo<'/admin', '/admin', Record<never, never>, Record<never, never>>,
     '/admin/': RouteRecordInfo<'/admin/', '/admin', Record<never, never>, Record<never, never>>,
     '/admin/create-realm': RouteRecordInfo<'/admin/create-realm', '/admin/create-realm', Record<never, never>, Record<never, never>>,
-    '/authentication': RouteRecordInfo<'/authentication', '/authentication', Record<never, never>, Record<never, never>>,
     '/error': RouteRecordInfo<'/error', '/error', Record<never, never>, Record<never, never>>,
+    '/realm/[id]/': RouteRecordInfo<'/realm/[id]/', '/realm/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/setup': RouteRecordInfo<'/setup', '/setup', Record<never, never>, Record<never, never>>,
   }
 }
 

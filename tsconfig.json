@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
-  "include": ["codegen.ts"],
+  "include": ["codegen.core.ts", "codegen.realm.ts"],
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
@@ -9,6 +9,6 @@
     "outDir": "dist",
     "lib": ["ESNext"],
     "target": "ESNext",
-    "rootDir": "."
-  }
+    "rootDir": ".",
+  },
 }

@@ -2,6 +2,8 @@ import { from } from '@apollo/client/core'
 
 import { authenticationLink } from './authentication'
 import { errorLink } from './error'
-import { httpLink } from './http'
+import { createHttpLink } from './http'
 
-export const link = from([authenticationLink, errorLink, httpLink])
+export function createLink(realmId: string) {
+  return from([authenticationLink, errorLink, createHttpLink(realmId)])
+}

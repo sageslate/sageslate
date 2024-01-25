@@ -19,8 +19,10 @@
     "lint:path": "eslint --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "lint": "pnpm run lint:path .",
     "format": "prettier --write src/",
-    "graphql:lint": "pnpm run lint:path src/graphql/index.ts",
-    "graphql:fix": "sage-fix-client src/graphql/index.ts"
+    "graphql:core:lint": "pnpm run lint:path src/graphql/core/index.ts",
+    "graphql:core:fix": "sage-fix-client src/graphql/core/index.ts",
+    "graphql:realm:lint": "pnpm run lint:path src/graphql/realm/index.ts",
+    "graphql:realm:fix": "sage-fix-client src/graphql/realm/index.ts --realm"
   },
   "dependencies": {
     "@apollo/client": "^3.8.10",

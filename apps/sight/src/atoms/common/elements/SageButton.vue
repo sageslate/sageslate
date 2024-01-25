@@ -6,7 +6,7 @@ import type { RouteLocationRaw } from 'vue-router/auto'
 
 const props = withDefaults(
   defineProps<{
-    theme: 'primary' | 'secondary' | 'default' | 'text'
+    theme?: 'primary' | 'secondary' | 'default' | 'text'
     to?: RouteLocationRaw
     href?: string
     type?: 'button' | 'submit' | 'reset'

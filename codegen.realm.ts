@@ -5,10 +5,10 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 // eslint-disable-next-line import/no-default-export
 export default {
-  schema: 'apps/source/src/graphql/**/*.graphql',
-  documents: 'apps/sight/src/graphql/**/*.graphql',
+  schema: 'apps/source/src/realm/graphql/**/*.graphql',
+  documents: 'apps/sight/src/graphql/realm/**/*.graphql',
   generates: {
-    'apps/source/src/schema': defineConfig({
+    'apps/source/src/realm/schema': defineConfig({
       resolverGeneration: 'all',
       resolverMainFileMode: 'modules',
       typesPluginsConfig: {
@@ -16,14 +16,17 @@ export default {
         maybeValue: 'T | undefined',
       },
     }),
-    'apps/sight/src/graphql/index.ts': {
+    'apps/sight/src/graphql/realm/index.ts': {
       plugins: [
         'typescript',
         'typescript-operations',
         'typescript-vue-apollo',
         {
           add: {
-            content: ['/// <reference types="graphql" />'].join('\n'),
+            content: [
+              '/// <reference types="graphql" />',
+              "import { strictInject, RealmIdInjectionKey } from '@/atoms/utils/strictInject'",
+            ].join('\n'),
           },
         },
       ],

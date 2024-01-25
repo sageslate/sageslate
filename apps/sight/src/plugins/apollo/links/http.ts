@@ -1,5 +1,11 @@
-import { createHttpLink } from '@apollo/client/core'
+import { createHttpLink as apolloCreateHttpLink } from '@apollo/client/core'
 
-export const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_API_BASE_URL,
-})
+const { VITE_API_BASE_URL } = import.meta.env
+
+const base = VITE_API_BASE_URL ?? `${location.origin}/graphql`
+
+export function createHttpLink(serverId: string) {
+  return apolloCreateHttpLink({
+    uri: `${base}/${serverId}`,
+  })
+}

@@ -18,5 +18,5 @@ declare module 'vue-router/auto' {
 
 // eslint-disable-next-line unicorn/prevent-abbreviations
 interface ImportMetaEnv {
-  readonly VITE_API_BASE_URL: string
+  readonly VITE_API_BASE_URL?: string
 }

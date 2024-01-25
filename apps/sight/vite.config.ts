@@ -24,4 +24,9 @@ export default defineConfig({
       target,
     },
   },
+  server: {
+    proxy: {
+      '/graphql': 'http://localhost:4000',
+    },
+  },
 })
