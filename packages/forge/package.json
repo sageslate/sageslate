@@ -2,11 +2,26 @@
   "name": "@sageslate/forge",
   "version": "0.0.0",
   "description": "SageSlate core backend server and API package",
+  "type": "module",
   "scripts": {
     "build": "echo \"Build script not implemented\" && exit 0",
+    "start": "echo \"Start script not implemented\" && exit 0",
     "clean": "echo \"Clean script not implemented\" && exit 0",
-    "dev": "echo \"Dev script not implemented\" && exit 0",
-    "lint": "echo \"Lint script not implemented\" && exit 0",
+    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "lint": "eslint src",
     "test": "echo \"Test script not implemented\" && exit 0"
+  },
+  "devDependencies": {
+    "@sageslate/codex": "workspace:*",
+    "@tsconfig/node23": "^23.0.1",
+    "@types/node": "^22.13.13",
+    "eslint": "^9.23.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "graphql": "^16.10.0",
+    "graphql-yoga": "^5.13.2",
+    "type-fest": "^4.38.0"
   }
 }

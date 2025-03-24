@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node23/tsconfig.json",
-  "include": ["src", "eslint.config.ts", "dist"],
+  "include": ["codegen.core.ts"],
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -12,6 +12,7 @@
     "outDir": "dist",
     "rootDir": ".",
     "declaration": true,
+    "declarationDir": "types",
     "erasableSyntaxOnly": true,
     "types": ["node"]
   }

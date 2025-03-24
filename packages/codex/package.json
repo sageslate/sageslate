@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "SageSlate shared ESLint configuration for consistent code quality",
   "type": "module",
-  "module": "./dist/lib.js",
+  "main": "./dist/lib.js",
   "types": "./dist/lib.d.ts",
   "scripts": {
     "build": "pkgroll",
