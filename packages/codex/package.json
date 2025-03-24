@@ -2,11 +2,29 @@
   "name": "@sageslate/codex",
   "version": "0.0.0",
   "description": "SageSlate shared ESLint configuration for consistent code quality",
+  "type": "module",
+  "module": "./dist/lib.js",
+  "types": "./dist/lib.d.ts",
   "scripts": {
-    "build": "echo \"Build script not implemented\" && exit 0",
-    "clean": "echo \"Clean script not implemented\" && exit 0",
-    "dev": "echo \"Dev script not implemented\" && exit 0",
-    "lint": "echo \"Lint script not implemented\" && exit 0",
-    "test": "echo \"Test script not implemented\" && exit 0"
+    "build": "pkgroll",
+    "lint": "eslint src",
+    "postinstall": "pnpm run build"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.23.0",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-import-resolver-typescript": "^4.2.2",
+    "eslint-plugin-import-x": "^4.9.1",
+    "eslint-plugin-unicorn": "^58.0.0",
+    "eslint-plugin-vue": "^10.0.0",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.28.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node23": "^23.0.1",
+    "@types/node": "^22.13.13",
+    "pkgroll": "^2.11.2",
+    "typescript": "^5.8.2"
   }
 }

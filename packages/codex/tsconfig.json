@@ -1,0 +1,19 @@
+{
+  "extends": "@tsconfig/node23/tsconfig.json",
+  "include": ["src", "eslint.config.ts", "dist"],
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUncheckedSideEffectImports": true,
+    "esModuleInterop": false,
+    "outDir": "dist",
+    "rootDir": ".",
+    "declaration": true,
+    "declarationDir": "types",
+    "erasableSyntaxOnly": true,
+    "types": ["node"]
+  }
+}
