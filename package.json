@@ -11,7 +11,10 @@
     "clean": "pnpm -r clean",
     "dev": "pnpm -r dev",
     "lint": "pnpm -r lint",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "docs:dev": "pnpm -r docs:dev",
+    "docs:build": "pnpm -r docs:build",
+    "docs:preview": "pnpm -r docs:preview"
   },
   "keywords": [],
   "author": "Nicolai Moraru <dot.nick.dot.messing@gmail.com>",

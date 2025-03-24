@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "description": "SageSlate project documentation package",
   "scripts": {
-    "build": "echo \"Build script not implemented\" && exit 0",
-    "clean": "echo \"Clean script not implemented\" && exit 0",
-    "dev": "echo \"Dev script not implemented\" && exit 0",
-    "lint": "echo \"Lint script not implemented\" && exit 0",
-    "test": "echo \"Test script not implemented\" && exit 0"
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
   }
 }
