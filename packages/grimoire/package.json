@@ -1,0 +1,12 @@
+{
+  "name": "@sageslate/grimoire",
+  "version": "0.0.0",
+  "description": "SageSlate core API definitions and interfaces shared across frontend, backend, and plugins",
+  "scripts": {
+    "build": "echo \"Build script not implemented\" && exit 0",
+    "clean": "echo \"Clean script not implemented\" && exit 0",
+    "dev": "echo \"Dev script not implemented\" && exit 0",
+    "lint": "echo \"Lint script not implemented\" && exit 0",
+    "test": "echo \"Test script not implemented\" && exit 0"
+  }
+}
