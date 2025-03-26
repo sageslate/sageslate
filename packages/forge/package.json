@@ -10,7 +10,8 @@
     "dev": "tsx watch --clear-screen=false src/index.ts",
     "lint": "eslint src",
     "test": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@sageslate/codex": "workspace:*",

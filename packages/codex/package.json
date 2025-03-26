@@ -8,7 +8,8 @@
   "scripts": {
     "build": "pkgroll",
     "lint": "eslint src",
-    "postinstall": "pnpm run build"
+    "postinstall": "pnpm run build",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@eslint/js": "^9.23.0",

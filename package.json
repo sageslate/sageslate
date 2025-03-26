@@ -15,7 +15,10 @@
     "dev:codegen:core": "pnpm run codegen:core --watch",
     "dev:codegen": "run-p dev:codegen:*",
     "dev:forge": "cd packages/forge && pnpm run dev",
-    "dev": "run-p -l dev:*"
+    "dev": "run-p -l dev:*",
+    "lint": "pnpm run -r lint",
+    "type-check": "pnpm run -r type-check",
+    "coverage": "pnpm run -r coverage"
   },
   "keywords": [],
   "author": "Nicolai Moraru <dot.nick.dot.messing@gmail.com>",
