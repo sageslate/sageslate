@@ -1,6 +1,6 @@
 {
   "extends": "@tsconfig/node23/tsconfig.json",
-  "include": ["src", "eslint.config.ts"],
+  "include": ["src", "eslint.config.ts", "vitest.config.ts"],
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -13,6 +13,7 @@
     "rootDir": ".",
     "declaration": false,
     "erasableSyntaxOnly": true,
-    "types": ["node"]
+    "types": ["node"],
+    "target": "ESNext"
   }
 }

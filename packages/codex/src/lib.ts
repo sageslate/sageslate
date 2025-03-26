@@ -66,6 +66,7 @@ export const tsRulesConfig = defineConfig({
     ],
     '@typescript-eslint/unbound-method': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 })
 

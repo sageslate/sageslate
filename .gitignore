@@ -137,3 +137,5 @@ dist
 operations.ts-e
 .env.production
 .env
+
+.dev_data
